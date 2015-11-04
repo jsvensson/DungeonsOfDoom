@@ -28,7 +28,7 @@ namespace Dungeons
 
             do
             {
-                Console.Clear();
+                //Console.Clear();
                 DisplayPlayerInfo();
                 AskForCommand();
                 player.Health--;
@@ -38,10 +38,52 @@ namespace Dungeons
         void AskForCommand()
         {
             Console.Write("Enter your movement: ");
-            ConsoleKeyInfo key = Console.ReadKey(false);
+            ConsoleKeyInfo key = Console.ReadKey();
+            switch (key.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    if (player.Y == 0)
+                    {
+                        Console.WriteLine("Bonk!");
+                    }
+                    else
+                    {
+                        player.Y -= 1;
+                    }
+                    break;
+                case ConsoleKey.DownArrow:
+                    if (player.Y == worldHeight - 1)
+                    {
+                        Console.WriteLine("Bonk!");
+                    }
+                    else
+                    {
+                        player.Y += 1;
+                    }
+                    break;
+                case ConsoleKey.LeftArrow:
+                    if (player.X == 0)
+                    {
+                        Console.WriteLine("Bonk!");
+                    }
+                    else
+                    {
+                        player.X -= 1;
+                    }
+                    break;
+                case ConsoleKey.RightArrow:
+                    if (player.X == worldWidth - 1)
+                    {
+                        Console.WriteLine("Bonk!");
+                    }
+                    else
+                    {
+                        player.X += 1;
+                    }
+                    break;
+            }
 
-            // Todo: Flytta spelaren genom att modifiera dess X/Y
-            // Todo: kollision
+
         }
 
         private void DisplayPlayerInfo()
@@ -67,9 +109,12 @@ namespace Dungeons
 
         private void CreatePlayer()
         {
-            // TODO: Läs in spelarens namn
-            // TODO: Slumpa fram stats
-            player = new Player("Bengt", 100);
+            Console.Write("Enter your name: ");
+            string name = Console.ReadLine();
+            int attack = random.Next(6) + 5;
+
+            player = new Player(name, 100);
+            player.AttackValue = attack;
         }
 
         private void AddItemsToRoom()

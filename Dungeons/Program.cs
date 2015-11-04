@@ -10,7 +10,7 @@ namespace Dungeons
     {
         static void Main(string[] args)
         {
-            Game game = new Game(3, 3);
+            Game game = new Game(4, 4);
             game.Start();
         }
     }
