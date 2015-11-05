@@ -34,7 +34,6 @@ namespace Dungeons
             
             do
             {
-                Console.Clear();
                 DrawGame();
                 AskForCommand();
                 player.Health--;
@@ -80,6 +79,7 @@ namespace Dungeons
 
         private void DrawGame()
         {
+            Console.Clear();
             Console.Title = $"Health: {player.Health} Position: [{player.X},{player.Y}]";
 
             // Loop through all tiles and draw items
