@@ -8,6 +8,8 @@ namespace Dungeons
 {
     class Tile
     {
+        Item item;
+
         public Tile(int brightness)
         {
             Brightness = brightness;
