@@ -8,13 +8,13 @@ namespace Dungeons
 {
     class Tile
     {
-        Item item;
-
         public Tile(int brightness)
         {
             Brightness = brightness;
+            Item = null;
         }
 
         public int Brightness { get; set; }
+        public Item Item { get; set; }
     }
 }
