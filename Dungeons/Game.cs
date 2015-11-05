@@ -35,9 +35,22 @@ namespace Dungeons
             do
             {
                 DrawGame();
+                CheckForItems();
                 AskForCommand();
                 player.Health--;
             } while (player.Health > 0);
+        }
+
+        private bool CheckForItems()
+        {
+            if (level[player.X, player.Y].HasItems)
+            {
+                Item item = level[player.X, player.Y].Item;
+                WriteStatus($"A {item.Name} lies here.");
+                return true;
+            }
+            else
+                return false;
         }
 
         void CreateItems()
