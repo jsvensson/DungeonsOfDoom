@@ -10,7 +10,10 @@ namespace Dungeons
     {
         static void Main(string[] args)
         {
-            Game game = new Game(4, 4);
+            int width = Console.WindowWidth;
+            int height = Console.WindowHeight;
+
+            Game game = new Game(width, height);
             game.Start();
         }
     }
