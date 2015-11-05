@@ -14,7 +14,7 @@ namespace Dungeons
             Health = health;
         }
 
-        public string Name { get; set; }
+        public string Name { get; private set; }
         public int Health { get; set; }
         public int AttackValue { get; set; }
         public int X { get; set; }
