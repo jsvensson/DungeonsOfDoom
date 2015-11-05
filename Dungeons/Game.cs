@@ -25,6 +25,8 @@ namespace Dungeons
         {
             CreateRooms();
             CreatePlayer();
+            CreateItems();
+
             Console.CursorVisible = false;
 
             player.X = random.Next(worldWidth);
@@ -37,6 +39,11 @@ namespace Dungeons
                 AskForCommand();
                 player.Health--;
             } while (player.Health > 0);
+        }
+
+        void CreateItems()
+        {
+            Item sword = new Item("Sword", 5, '/');
         }
 
         void AskForCommand()
