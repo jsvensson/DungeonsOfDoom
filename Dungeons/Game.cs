@@ -76,8 +76,28 @@ namespace Dungeons
         private void DrawGame()
         {
             Console.Title = $"Health: {player.Health} Position: [{player.X},{player.Y}]";
-            Console.SetCursorPosition(player.X, player.Y);
-            Console.Write('@');
+
+            // Loop through all tiles and draw items
+            for (int x = 0; x < worldWidth; x++)
+            {
+                for (int y = 0; y < worldHeight; y++)
+                {
+                    Tile tile = level[x, y];
+                    if(tile.Item != null)
+                    {
+                        DrawCharAtPos(x, y, tile.Item.Symbol);
+                    }
+                }
+            }
+
+            // Draw player last
+            DrawCharAtPos(player.X, player.Y, '@');
+        }
+
+        private void DrawCharAtPos(int x, int y, char character)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.Write(character);
         }
 
         private void CreateRooms()
