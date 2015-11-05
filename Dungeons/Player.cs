@@ -13,6 +13,7 @@ namespace Dungeons
             Name = name;
             Health = health;
             AttackValue = attackValue;
+            Inventory.Clear();
         }
 
         public string Name { get; private set; }
@@ -31,6 +32,7 @@ namespace Dungeons
             }
         }
 
+        public List<Item> Inventory { get; set; }
 
     }
 }
