@@ -11,7 +11,7 @@ namespace Dungeons
     {
         int worldWidth;
         int worldHeight;
-        Room[,] rooms;
+        Tile[,] rooms;
         Random random = new Random();
         Player player;
 
@@ -77,14 +77,14 @@ namespace Dungeons
         {
             // Anropar konstruktorn för en array av Room
             // Skapar 2d-array för våra rum, värde null
-            rooms = new Room[worldWidth, worldHeight];
+            rooms = new Tile[worldWidth, worldHeight];
 
             // Skapa rummen
             for (int y = 0; y < worldHeight; y++)
             {
                 for (int x = 0; x < worldWidth; x++)
                 {
-                    rooms[x, y] = new Room(random.Next(100 + 1));
+                    rooms[x, y] = new Tile(random.Next(100 + 1));
                 }
             }
         }

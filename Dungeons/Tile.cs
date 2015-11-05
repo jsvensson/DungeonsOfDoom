@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Dungeons
 {
-    class Room
+    class Tile
     {
-        public Room(int brightness)
+        public Tile(int brightness)
         {
             Brightness = brightness;
         }
