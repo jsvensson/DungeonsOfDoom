@@ -13,7 +13,7 @@ namespace Dungeons
             Name = name;
             Health = health;
             AttackValue = attackValue;
-            Inventory.Clear();
+            Inventory = new List<Item>();
         }
 
         public string Name { get; private set; }
