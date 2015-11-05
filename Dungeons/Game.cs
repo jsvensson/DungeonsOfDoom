@@ -43,7 +43,12 @@ namespace Dungeons
 
         void CreateItems()
         {
-            Item sword = new Item("Sword", 5, '/');
+            for (int i = 0; i < 10; i++)
+            {
+                Item sword = new Item("Sword", 5, '/');
+                int[] levelPos = GetRandomPosition();
+                level[levelPos[0], levelPos[1]].Item = sword;
+            }
         }
 
         void AskForCommand()
