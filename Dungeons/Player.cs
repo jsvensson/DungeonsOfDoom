@@ -39,7 +39,6 @@ namespace Dungeons
             get
             {
                 int weight = 0;
-
                 foreach (Item item in Inventory)
                 {
                     weight += item.Weight;
@@ -47,7 +46,5 @@ namespace Dungeons
                 return weight;
             }
         }
-
-
     }
 }
