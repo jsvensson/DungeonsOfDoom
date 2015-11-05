@@ -14,6 +14,17 @@ namespace Dungeons
             Item = null;
         }
 
+        public bool HasItems
+        {
+            get
+            {
+                if (Item == null)
+                    return false;
+                else
+                    return true;
+            }
+        }
+
         public int Brightness { get; set; }
         public Item Item { get; set; }
     }
