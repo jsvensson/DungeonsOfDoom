@@ -8,10 +8,11 @@ namespace Dungeons
 {
     class Player
     {
-        public Player(string name, int health)
+        public Player(string name, int health, int attackValue)
         {
             Name = name;
             Health = health;
+            AttackValue = attackValue;
         }
 
         public string Name { get; private set; }

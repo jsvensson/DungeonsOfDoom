@@ -113,8 +113,7 @@ namespace Dungeons
             string name = Console.ReadLine();
             int attack = random.Next(6) + 5;
 
-            player = new Player(name, 100);
-            player.AttackValue = attack;
+            player = new Player(name, 100, attack);
         }
 
         private void AddItemsToRoom()
