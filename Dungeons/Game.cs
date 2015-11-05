@@ -87,7 +87,27 @@ namespace Dungeons
                     if (player.X < worldWidth - 1)
                         player.X += 1;
                     break;
+
+                case ConsoleKey.P:
+                    PickupItem();
+                    break;
+
+              
             }
+        }
+
+        private void PickupItem()
+        {
+            Tile tile = level[player.X, player.Y];
+            if (tile.HasItems)
+            {
+                Item item = tile.Item;
+                player.Inventory.Add(item);
+                tile.Item = null;
+                WriteStatus($"You pick up a {item.Name}.");
+            }
+            else
+                WriteStatus("You grasp at air.");
         }
 
         private void DrawGame()
