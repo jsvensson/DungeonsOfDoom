@@ -19,7 +19,7 @@ namespace Dungeons
         public Game(int worldWidth, int worldHeight)
         {
             this.worldWidth = worldWidth;
-            this.worldHeight = worldHeight;
+            this.worldHeight = worldHeight -1;
         }
 
         public void Start()
