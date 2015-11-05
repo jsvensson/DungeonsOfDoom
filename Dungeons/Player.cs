@@ -20,5 +20,17 @@ namespace Dungeons
         public int AttackValue { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
+    
+        public int[] Position
+        {
+            get { return new int[] { X, Y }; }
+            set
+            {
+                X = value[0];
+                Y = value[1];
+            }
+        }
+
+
     }
 }
