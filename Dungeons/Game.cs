@@ -29,8 +29,10 @@ namespace Dungeons
 
             Console.CursorVisible = false;
 
-            player.X = random.Next(worldWidth);
-            player.Y = random.Next(worldHeight);
+            int[] startPosition = GetRandomPosition();
+            player.X = startPosition[0];
+            player.Y = startPosition[1];
+
 
             do
             {
@@ -115,5 +117,12 @@ namespace Dungeons
             // TODO: Implementera
         }
 
+        private int[] GetRandomPosition()
+        {
+            int x = random.Next(worldWidth);
+            int y = random.Next(worldHeight);
+
+            return new int[] { x, y };
+        }
     }
 }
