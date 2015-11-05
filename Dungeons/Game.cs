@@ -25,11 +25,15 @@ namespace Dungeons
         {
             CreateRooms();
             CreatePlayer();
+            Console.CursorVisible = false;
+
+            player.X = random.Next(worldWidth);
+            player.Y = random.Next(worldHeight);
 
             do
             {
-                //Console.Clear();
-                DisplayPlayerInfo();
+                Console.Clear();
+                DrawGame();
                 AskForCommand();
                 player.Health--;
             } while (player.Health > 0);
@@ -37,58 +41,36 @@ namespace Dungeons
 
         void AskForCommand()
         {
-            Console.Write("Enter your movement: ");
             ConsoleKeyInfo keyInfo = Console.ReadKey();
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    if (player.Y == 0)
-                    {
-                        Console.WriteLine("Bonk!");
-                    }
-                    else
-                    {
+                    if (player.Y > 0)
                         player.Y -= 1;
-                    }
                     break;
+
                 case ConsoleKey.DownArrow:
-                    if (player.Y == worldHeight - 1)
-                    {
-                        Console.WriteLine("Bonk!");
-                    }
-                    else
-                    {
+                    if (player.Y < worldHeight - 1)
                         player.Y += 1;
-                    }
                     break;
+
                 case ConsoleKey.LeftArrow:
-                    if (player.X == 0)
-                    {
-                        Console.WriteLine("Bonk!");
-                    }
-                    else
-                    {
+                    if (player.X > 0)
                         player.X -= 1;
-                    }
                     break;
+
                 case ConsoleKey.RightArrow:
-                    if (player.X == worldWidth - 1)
-                    {
-                        Console.WriteLine("Bonk!");
-                    }
-                    else
-                    {
+                    if (player.X < worldWidth - 1)
                         player.X += 1;
-                    }
                     break;
             }
-
-
         }
 
-        private void DisplayPlayerInfo()
+        private void DrawGame()
         {
-            Console.WriteLine($"Health: {player.Health}   Position: [{player.X},{player.Y}]");
+            Console.Title = $"Health: {player.Health} Position: [{player.X},{player.Y}]";
+            Console.SetCursorPosition(player.X, player.Y);
+            Console.Write('@');
         }
 
         private void CreateRooms()
