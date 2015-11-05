@@ -14,6 +14,7 @@ namespace Dungeons
         Tile[,] level;
         Random random = new Random();
         Player player;
+        string lastStatus;
 
         public Game(int worldWidth, int worldHeight)
         {
@@ -113,7 +114,9 @@ namespace Dungeons
         private void DrawGame()
         {
             Console.Clear();
-            Console.Title = $"Health: {player.Health} Position: [{player.X},{player.Y}]";
+            Console.Title = $"Health: {player.Health} Inventory: {player.Inventory.Count} Position: [{player.X},{player.Y}]";
+            WriteStatus(lastStatus);
+            lastStatus = "";
 
             // Loop through all tiles and draw items
             for (int x = 0; x < worldWidth; x++)
@@ -179,6 +182,13 @@ namespace Dungeons
             int y = random.Next(worldHeight);
 
             return new int[] { x, y };
+        }
+
+        private void WriteStatus(string message)
+        {
+            Console.SetCursorPosition(0, worldHeight);
+            Console.Write(message);
+            lastStatus = message;
         }
     }
 }
