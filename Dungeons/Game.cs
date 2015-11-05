@@ -27,13 +27,11 @@ namespace Dungeons
             CreatePlayer();
             CreateItems();
 
+            // Hide cursor at game start
             Console.CursorVisible = false;
 
-            int[] startPosition = GetRandomPosition();
-            player.X = startPosition[0];
-            player.Y = startPosition[1];
-
-
+            player.Position = GetRandomPosition();
+            
             do
             {
                 Console.Clear();
