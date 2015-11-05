@@ -38,8 +38,8 @@ namespace Dungeons
         void AskForCommand()
         {
             Console.Write("Enter your movement: ");
-            ConsoleKeyInfo key = Console.ReadKey();
-            switch (key.Key)
+            ConsoleKeyInfo keyInfo = Console.ReadKey();
+            switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
                     if (player.Y == 0)
