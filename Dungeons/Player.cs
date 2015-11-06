@@ -13,7 +13,6 @@ namespace Dungeons
             Name = name;
             Health = health;
             AttackValue = attackValue;
-            Inventory = new List<Item>();
         }
 
         public string Name { get; private set; }
@@ -32,7 +31,7 @@ namespace Dungeons
             }
         }
 
-        public List<Item> Inventory { get; set; }
+        public List<Item> Inventory { get; set; } = new List<Item>();
 
         public int Encumbrance
         {
