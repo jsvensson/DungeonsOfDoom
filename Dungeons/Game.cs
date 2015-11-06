@@ -15,17 +15,20 @@ namespace Dungeons
         Random random = new Random();
         Player player;
         string lastStatus;
+        List<Creature> creatures;
 
         public Game(int worldWidth, int worldHeight)
         {
             this.worldWidth = worldWidth;
             this.worldHeight = worldHeight -1;
+            creatures = new List<Creature>();
         }
 
         public void Start()
         {
             CreateRooms();
             CreatePlayer();
+            CreateMonsters();
             CreateItems();
 
             // Hide cursor at game start
@@ -44,7 +47,7 @@ namespace Dungeons
 
         private bool CheckForItems()
         {
-            Tile tile = level[player.X, player.Y];
+            Tile tile = level[player.Position.X, player.Position.Y];
             if (tile.HasItems)
             {
                 Item item = tile.Item;
@@ -60,8 +63,19 @@ namespace Dungeons
             for (int i = 0; i < 10; i++)
             {
                 Item sword = new Item("Sword", 5, '/');
-                int[] levelPos = GetRandomPosition();
-                level[levelPos[0], levelPos[1]].Item = sword;
+                Position levelPos = GetRandomPosition();
+                level[levelPos.X, levelPos.Y].Item = sword;
+            }
+        }
+
+        void CreateMonsters()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                Troll troll = new Troll("Troll", 15, 4);
+                Position pos = GetRandomPosition();
+                troll.Position = pos;
+                creatures.Add(troll);
             }
         }
 
@@ -71,36 +85,94 @@ namespace Dungeons
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    if (player.Y > 0)
-                        player.Y -= 1;
+                    if (player.Position.Y > 0)
+                    {
+                        bool canWalk = true;
+                        foreach (Creature c in creatures)
+                        {
+                            Position newPos = new Position(player.Position.X, player.Position.Y - 1);
+                            if (Position.Compare(c.Position, newPos))
+                            {
+                                WriteStatus($"{c.Name} already stands there!");
+                                canWalk = false;
+                            }
+                        }
+                        if (canWalk)
+                        {
+                            player.Position = new Position(player.Position.X, player.Position.Y - 1);
+                        }
+                    }
                     break;
 
                 case ConsoleKey.DownArrow:
-                    if (player.Y < worldHeight - 1)
-                        player.Y += 1;
+                    if (player.Position.Y < worldHeight - 1)
+                    {
+                        bool canWalk = true;
+                        foreach (Creature c in creatures)
+                        {
+                            Position newPos = new Position(player.Position.X, player.Position.Y + 1);
+                            if (Position.Compare(c.Position, newPos))
+                            {
+                                WriteStatus($"{c.Name} already stands there!");
+                                canWalk = false;
+                            }
+                        }
+                        if (canWalk)
+                        {
+                            player.Position = new Position(player.Position.X, player.Position.Y + 1);
+                        }
+                    }
                     break;
 
                 case ConsoleKey.LeftArrow:
-                    if (player.X > 0)
-                        player.X -= 1;
+                    if (player.Position.X > 0)
+                    {
+                        bool canWalk = true;
+                        foreach (Creature c in creatures)
+                        {
+                            Position newPos = new Position(player.Position.X - 1, player.Position.Y);
+                            if (Position.Compare(c.Position, newPos))
+                            {
+                                WriteStatus($"{c.Name} already stands there!");
+                                canWalk = false;
+                            }
+                        }
+                        if (canWalk)
+                        {
+                            player.Position = new Position(player.Position.X - 1, player.Position.Y);
+                        }
+                    }
                     break;
 
                 case ConsoleKey.RightArrow:
-                    if (player.X < worldWidth - 1)
-                        player.X += 1;
+                    if (player.Position.X < worldWidth - 1)
+                    {
+                        bool canWalk = true;
+                        foreach (Creature c in creatures)
+                        {
+                            Position newPos = new Position(player.Position.X + 1, player.Position.Y);
+                            if (Position.Compare(c.Position, newPos))
+                            {
+                                WriteStatus($"{c.Name} already stands there!");
+                                canWalk = false;
+                            }
+                        }
+                        if (canWalk)
+                        {
+                            player.Position = new Position(player.Position.X + 1, player.Position.Y);
+                        }
+                    }
                     break;
 
                 case ConsoleKey.P:
                     PickupItem();
                     break;
-
-              
             }
         }
 
         private void PickupItem()
         {
-            Tile tile = level[player.X, player.Y];
+            Tile tile = level[player.Position.X, player.Position.Y];
             if (tile.HasItems)
             {
                 Item item = tile.Item;
@@ -115,7 +187,7 @@ namespace Dungeons
         private void DrawGame()
         {
             Console.Clear();
-            Console.Title = $"Health: {player.Health} Inventory: {player.Inventory.Count} Weight: {player.Encumbrance} Position: [{player.X},{player.Y}]";
+            Console.Title = $"Health: {player.Health} Inventory: {player.Inventory.Count} Weight: {player.Encumbrance} Position: [{player.Position.X},{player.Position.Y}]";
             WriteStatus(lastStatus);
             lastStatus = "";
 
@@ -133,7 +205,10 @@ namespace Dungeons
             }
 
             // Draw player last
-            DrawCharAtPos(player.X, player.Y, '@');
+            foreach (Creature creature in creatures)
+            {
+                DrawCharAtPos(creature.Position.X, creature.Position.Y, creature.Symbol);
+            }
         }
 
         private void DrawCharAtPos(int x, int y, char character)
@@ -165,24 +240,15 @@ namespace Dungeons
             int attack = random.Next(6) + 5;
 
             player = new Player(name, 100, attack);
+            creatures.Add(player);
         }
 
-        private void AddItemsToRoom()
-        {
-            // TODO: Implementera
-        }
-
-        private void AddMonstersToRoom()
-        {
-            // TODO: Implementera
-        }
-
-        private int[] GetRandomPosition()
+        private Position GetRandomPosition()
         {
             int x = random.Next(worldWidth);
             int y = random.Next(worldHeight);
 
-            return new int[] { x, y };
+            return new Position(x, y);
         }
 
         private void WriteStatus(string message)
