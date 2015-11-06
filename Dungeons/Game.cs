@@ -115,7 +115,7 @@ namespace Dungeons
         private void DrawGame()
         {
             Console.Clear();
-            Console.Title = $"Health: {player.Health} Inventory: {player.Inventory.Count} Weight: {player.InventoryWeight} Position: [{player.X},{player.Y}]";
+            Console.Title = $"Health: {player.Health} Inventory: {player.Inventory.Count} Weight: {player.Encumbrance} Position: [{player.X},{player.Y}]";
             WriteStatus(lastStatus);
             lastStatus = "";
 

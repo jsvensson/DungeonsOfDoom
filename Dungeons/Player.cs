@@ -34,7 +34,7 @@ namespace Dungeons
 
         public List<Item> Inventory { get; set; }
 
-        public int InventoryWeight
+        public int Encumbrance
         {
             get
             {
