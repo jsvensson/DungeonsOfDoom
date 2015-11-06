@@ -32,7 +32,7 @@ namespace Dungeons
             Console.CursorVisible = false;
 
             player.Position = GetRandomPosition();
-            
+            WriteStatus("You have entered a dark place. You are likely to be eaten by a grue.");
             do
             {
                 DrawGame();
