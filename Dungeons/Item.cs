@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Dungeons
 {
-    class Item
+    class Item : GameEntity
     {
-        public Item(string name, int weight, char symbol)
+        public Item(string name, int weight, char symbol) : base(symbol)
         {
             Name = name;
             Weight = weight;
-            Symbol = symbol;
         }
 
         public string Name { get; private set; }
