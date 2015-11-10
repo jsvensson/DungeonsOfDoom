@@ -8,9 +8,8 @@ namespace Dungeons
 {
     class Troll : Monster
     {
-        public Troll(string name, int health, int attackValue) : base(name, health, attackValue)
+        public Troll(string name, int health, int attackValue) : base(name, health, attackValue, 'T')
         {
-            Symbol = 'T';
         }
     }
 }

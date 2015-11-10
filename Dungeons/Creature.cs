@@ -8,11 +8,12 @@ namespace Dungeons
 {
     class Creature
     {
-        public Creature(string name, int health, int attackValue)
+        public Creature(string name, int health, int attackValue, char symbol)
         {
             Name = name;
             Health = health;
             AttackValue = attackValue;
+            Symbol = symbol;
         }
 
         public string Name { get; private set; }
