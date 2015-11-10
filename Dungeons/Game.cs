@@ -39,8 +39,8 @@ namespace Dungeons
             do
             {
                 DrawGame();
-                CheckForItems();
                 AskForCommand();
+                CheckForItems();
                 player.Health--;
             } while (player.Health > 0);
         }
