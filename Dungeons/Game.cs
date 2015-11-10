@@ -62,7 +62,7 @@ namespace Dungeons
         {
             for (int i = 0; i < 10; i++)
             {
-                Item sword = new Item("Sword", 5, '/');
+                Item sword = new Item("Sword", 5, '/', ConsoleColor.White);
                 Position levelPos = GetRandomPosition();
                 level[levelPos.X, levelPos.Y].Item = sword;
             }
@@ -199,7 +199,7 @@ namespace Dungeons
                     Tile tile = level[x, y];
                     if(tile.Item != null)
                     {
-                        DrawCharAtPos(x, y, tile.Item.Symbol);
+                        DrawCharAtPos(x, y, tile.Item.Symbol, tile.Item.Color);
                     }
                 }
             }
@@ -207,12 +207,13 @@ namespace Dungeons
             // Draw player last
             foreach (Creature creature in creatures)
             {
-                DrawCharAtPos(creature.Position.X, creature.Position.Y, creature.Symbol);
+                DrawCharAtPos(creature.Position.X, creature.Position.Y, creature.Symbol, creature.Color);
             }
         }
 
-        private void DrawCharAtPos(int x, int y, char character)
+        private void DrawCharAtPos(int x, int y, char character, ConsoleColor color)
         {
+            Console.ForegroundColor = color;
             Console.SetCursorPosition(x, y);
             Console.Write(character);
         }

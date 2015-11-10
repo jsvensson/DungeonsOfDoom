@@ -8,7 +8,7 @@ namespace Dungeons
 {
     abstract class Creature : GameEntity
     {
-        public Creature(string name, int health, int attackValue, char symbol) : base(symbol)
+        public Creature(string name, int health, int attackValue, char symbol, ConsoleColor color) : base(symbol, color)
         {
             Name = name;
             Health = health;
