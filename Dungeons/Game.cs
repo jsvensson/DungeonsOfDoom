@@ -187,6 +187,7 @@ namespace Dungeons
         private void DrawGame()
         {
             Console.Clear();
+            Console.ResetColor();
             Console.Title = $"Health: {player.Health} Inventory: {player.Inventory.Count} Weight: {player.Encumbrance} Position: [{player.Position.X},{player.Position.Y}]";
             WriteStatus(lastStatus);
             lastStatus = "";
@@ -255,6 +256,7 @@ namespace Dungeons
         private void WriteStatus(string message)
         {
             Console.SetCursorPosition(0, worldHeight);
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Write(message);
             lastStatus = message;
         }
