@@ -11,7 +11,7 @@ namespace Dungeons
         static void Main(string[] args)
         {
             int width = Console.WindowWidth;
-            int height = Console.WindowHeight - 1;
+            int height = Console.WindowHeight;
             Game game = new Game(width, height);
             game.Start();
         }
