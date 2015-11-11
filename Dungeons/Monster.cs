@@ -8,7 +8,8 @@ namespace Dungeons
 {
     class Monster : Creature
     {
-        public Monster(string name, int health, int attackValue, char symbol, ConsoleColor color) : base(name, health, attackValue, symbol, color)
+        public Monster(string name, int health, int attackValue, char symbol, ConsoleColor color):
+            base(name, health, attackValue, symbol, color)
         {
 
         }

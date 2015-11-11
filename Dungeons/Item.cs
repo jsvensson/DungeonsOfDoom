@@ -8,7 +8,8 @@ namespace Dungeons
 {
     class Item : GameEntity
     {
-        public Item(string name, int weight, char symbol, ConsoleColor color) : base(symbol, color)
+        public Item(string name, int weight, char symbol, ConsoleColor color):
+            base(symbol, color)
         {
             Name = name;
             Weight = weight;
