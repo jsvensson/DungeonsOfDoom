@@ -94,6 +94,10 @@ namespace Dungeons
             ConsoleKeyInfo keyInfo = Console.ReadKey();
             Tile newTile = null;
             Monster monster = null;
+            int newX = player.Position.X;
+            int newY = player.Position.Y;
+            int maxX = level.GetUpperBound(0);
+            int maxY = level.GetUpperBound(1);
 
             switch (keyInfo.Key)
             {
