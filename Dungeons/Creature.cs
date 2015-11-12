@@ -37,12 +37,12 @@ namespace Dungeons
                     newX = Position.X;
                     newY = Position.Y + 1;
                     break;
-                case Direction.East:
-                    newX = Position.X + 1;
-                    newY = Position.Y;
-                    break;
                 case Direction.West:
                     newX = Position.X - 1;
+                    newY = Position.Y;
+                    break;
+                case Direction.East:
+                    newX = Position.X + 1;
                     newY = Position.Y;
                     break;
                 default:
