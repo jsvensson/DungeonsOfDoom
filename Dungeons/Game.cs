@@ -98,6 +98,7 @@ namespace Dungeons
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
+                case ConsoleKey.NumPad8:
                     if (!player.Move(Direction.North, level))
                     {
                         newTile = level[player.Position.X, player.Position.Y - 1];
@@ -105,6 +106,7 @@ namespace Dungeons
                     }
                     break;
                 case ConsoleKey.DownArrow:
+                case ConsoleKey.NumPad2:
                     if (!player.Move(Direction.South, level))
                     {
                         newTile = level[player.Position.X, player.Position.Y + 1];
@@ -112,6 +114,7 @@ namespace Dungeons
                     }
                     break;
                 case ConsoleKey.LeftArrow:
+                case ConsoleKey.NumPad4:
                     if (!player.Move(Direction.West, level))
                     {
                         newTile = level[player.Position.X - 1, player.Position.Y];
@@ -119,6 +122,7 @@ namespace Dungeons
                     }
                     break;
                 case ConsoleKey.RightArrow:
+                case ConsoleKey.NumPad6:
                     if (!player.Move(Direction.East, level))
                     {
                         newTile = level[player.Position.X + 1, player.Position.Y];
