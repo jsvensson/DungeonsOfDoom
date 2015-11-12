@@ -252,14 +252,13 @@ namespace Dungeons
 
         private Point GetRandomWalkablePosition()
         {
-            int x, y;
+            Point point;
             do
             {
-                x = random.Next(worldWidth);
-                y = random.Next(worldHeight);
-            } while (level[x, y].HasMonster);
+                point = GetRandomPosition();
+            } while (level[point.X, point.Y].HasMonster);
 
-            return new Point(x, y);
+            return point;
         }
 
         private void WriteStatus(string message)
