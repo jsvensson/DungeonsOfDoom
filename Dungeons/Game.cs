@@ -41,14 +41,14 @@ namespace Dungeons
                 DrawGame();
                 AskForCommand();
                 CheckForItems();
-                player.Health--;
+                //player.Health--;
             } while (player.Health > 0);
         }
 
         private bool CheckForItems()
         {
             Tile tile = level[player.Position.X, player.Position.Y];
-            if (tile.HasItems)
+            if (tile.Item != null)
             {
                 Item item = tile.Item;
                 WriteStatus($"A {item.Name} lies here.");
@@ -63,7 +63,7 @@ namespace Dungeons
             for (int i = 0; i < 10; i++)
             {
                 Item sword = new Item("Sword", 5, '/', ConsoleColor.White);
-                Position levelPos = GetRandomPosition();
+                Point levelPos = GetRandomPosition();
                 level[levelPos.X, levelPos.Y].Item = sword;
             }
         }
@@ -72,102 +72,99 @@ namespace Dungeons
         {
             for (int i = 0; i < 10; i++)
             {
-                Troll troll = new Troll("Troll", 15, 4);
-                Position pos = GetRandomPosition();
-                troll.Position = pos;
-                creatures.Add(troll);
+                Troll t = new Troll("Troll", 15, 8);
+                Point pos = GetRandomWalkablePosition();
+                t.Position = pos;
+                level[pos.X, pos.Y].Monster = t;
+                creatures.Add(t);
+            }
+
+            for (int i = 0; i < 25; i++)
+            {
+                Goblin g = new Goblin("Cowardly Goblin", 10, 3);
+                Point pos = GetRandomWalkablePosition();
+                g.Position = pos;
+                level[pos.X, pos.Y].Monster = g;
+                creatures.Add(g);
             }
         }
 
         void AskForCommand()
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey();
+            Tile newTile = null;
+            Monster monster = null;
+
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
-                    if (player.Position.Y > 0)
+                    if (!player.Move(Direction.North, level))
                     {
-                        bool canWalk = true;
-                        foreach (Creature c in creatures)
-                        {
-                            Position newPos = new Position(player.Position.X, player.Position.Y - 1);
-                            if (Position.Compare(c.Position, newPos))
-                            {
-                                WriteStatus($"{c.Name} already stands there!");
-                                canWalk = false;
-                            }
-                        }
-                        if (canWalk)
-                        {
-                            player.Position = new Position(player.Position.X, player.Position.Y - 1);
-                        }
+                        newTile = level[player.Position.X, player.Position.Y - 1];
+                        monster = newTile.Monster;
                     }
                     break;
-
                 case ConsoleKey.DownArrow:
-                    if (player.Position.Y < worldHeight - 1)
+                    if (!player.Move(Direction.South, level))
                     {
-                        bool canWalk = true;
-                        foreach (Creature c in creatures)
-                        {
-                            Position newPos = new Position(player.Position.X, player.Position.Y + 1);
-                            if (Position.Compare(c.Position, newPos))
-                            {
-                                WriteStatus($"{c.Name} already stands there!");
-                                canWalk = false;
-                            }
-                        }
-                        if (canWalk)
-                        {
-                            player.Position = new Position(player.Position.X, player.Position.Y + 1);
-                        }
+                        newTile = level[player.Position.X, player.Position.Y + 1];
+                        monster = newTile.Monster;
                     }
                     break;
-
                 case ConsoleKey.LeftArrow:
-                    if (player.Position.X > 0)
+                    if (!player.Move(Direction.West, level))
                     {
-                        bool canWalk = true;
-                        foreach (Creature c in creatures)
-                        {
-                            Position newPos = new Position(player.Position.X - 1, player.Position.Y);
-                            if (Position.Compare(c.Position, newPos))
-                            {
-                                WriteStatus($"{c.Name} already stands there!");
-                                canWalk = false;
-                            }
-                        }
-                        if (canWalk)
-                        {
-                            player.Position = new Position(player.Position.X - 1, player.Position.Y);
-                        }
+                        newTile = level[player.Position.X - 1, player.Position.Y];
+                        monster = newTile.Monster;
                     }
                     break;
-
                 case ConsoleKey.RightArrow:
-                    if (player.Position.X < worldWidth - 1)
+                    if (!player.Move(Direction.East, level))
                     {
-                        bool canWalk = true;
-                        foreach (Creature c in creatures)
-                        {
-                            Position newPos = new Position(player.Position.X + 1, player.Position.Y);
-                            if (Position.Compare(c.Position, newPos))
-                            {
-                                WriteStatus($"{c.Name} already stands there!");
-                                canWalk = false;
-                            }
-                        }
-                        if (canWalk)
-                        {
-                            player.Position = new Position(player.Position.X + 1, player.Position.Y);
-                        }
+                        newTile = level[player.Position.X + 1, player.Position.Y];
+                        monster = newTile.Monster;
                     }
                     break;
-
                 case ConsoleKey.P:
                     PickupItem();
                     break;
             }
+
+            // Fight if we encountered a monster
+            if (monster != null)
+            {
+                int healthLeft = player.Fight(monster);
+                if (healthLeft >= 1)
+                {
+                    WriteStatus($"Attacked {monster.Name} for {player.AttackValue} damage! It has {monster.Health} hp left.");
+
+                    // Monster fights back
+                    monster.Fight(player);
+                }
+                else
+                {
+                    // Monster is dead
+                    WriteStatus($"{monster.Name} falls over dead!");
+
+                    // Remove from creature list
+                    // TODO: remove creature list from game
+                    creatures.Remove(monster);
+                    // Remove from tile
+                    if (newTile != null)
+                    {
+                        newTile.Monster = null;
+
+                    }
+                }
+            }
+
+            // Check player state
+            if (player.Health <= 0 && monster != null)
+            {
+                WriteStatus($"You have been slain by a {monster.Name}... Rest in pieces.");
+            }
+
+
         }
 
         private void PickupItem()
@@ -239,18 +236,30 @@ namespace Dungeons
         {
             Console.Write("Enter your name: ");
             string name = Console.ReadLine();
-            int attack = random.Next(6) + 5;
+            int attack = random.Next(5, 11);
 
-            player = new Player(name, 100, attack);
+            player = new Player(name, 25, attack);
             creatures.Add(player);
         }
 
-        private Position GetRandomPosition()
+        private Point GetRandomPosition()
         {
             int x = random.Next(worldWidth);
             int y = random.Next(worldHeight);
 
-            return new Position(x, y);
+            return new Point(x, y);
+        }
+
+        private Point GetRandomWalkablePosition()
+        {
+            int x, y;
+            do
+            {
+                x = random.Next(worldWidth);
+                y = random.Next(worldHeight);
+            } while (level[x, y].HasMonster);
+
+            return new Point(x, y);
         }
 
         private void WriteStatus(string message)

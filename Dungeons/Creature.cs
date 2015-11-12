@@ -62,6 +62,6 @@ namespace Dungeons
         public string Name { get; private set; }
         public int Health { get; set; }
         public int AttackValue { get; set; }
-        public Position Position { get; set; }
+        public Point Position { get; set; }
     }
 }

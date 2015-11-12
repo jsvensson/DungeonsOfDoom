@@ -9,7 +9,7 @@ namespace Dungeons
     class Troll : Monster
     {
         public Troll(string name, int health, int attackValue):
-            base(name, health, attackValue, 'T', ConsoleColor.Green)
+            base(name, health, attackValue, 'T', ConsoleColor.Red)
         {
         }
     }

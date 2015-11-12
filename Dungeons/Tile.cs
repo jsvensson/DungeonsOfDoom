@@ -18,14 +18,20 @@ namespace Dungeons
         {
             get
             {
-                if (Item == null)
-                    return false;
-                else
-                    return true;
+                return Item != null;
+            }
+        }
+
+        public bool HasMonster
+        {
+            get
+            {
+                return Monster != null;
             }
         }
 
         public int Brightness { get; set; }
         public Item Item { get; set; }
+        public Monster Monster { get; set; }
     }
 }

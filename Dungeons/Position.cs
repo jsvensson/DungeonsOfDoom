@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Dungeons
 {
-    struct Position
+    struct Point
     {
-        public Position(int x, int y)
+        public Point(int x, int y)
         {
             X = x;
             Y = y;
@@ -16,7 +16,7 @@ namespace Dungeons
         public int X { get; set; }
         public int Y { get; set; }
 
-        public static bool Compare(Position left, Position right)
+        public static bool Compare(Point left, Point right)
         {
             return (left.X == right.X) && (left.Y == right.Y);
         }
