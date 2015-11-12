@@ -22,7 +22,7 @@ namespace Dungeons
             return opponent.Health;
         }
 
-        public bool Move(Direction dir, Tile[,] map)
+        public bool Move(Direction dir, Tile[,] level)
         {
             int newX;
             int newY;
@@ -48,7 +48,7 @@ namespace Dungeons
                 default:
                     return false;
             }
-            if (map[newX, newY].HasMonster)
+            if (level[newX, newY].HasMonster)
             {
                 return false;
             }
