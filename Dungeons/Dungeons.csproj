@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\BlockedPath.cs" />
+    <Compile Include="Enums\MoveInfo.cs" />
     <Compile Include="GameEntities\Creature.cs" />
     <Compile Include="Enums\Direction.cs" />
     <Compile Include="Game.cs" />

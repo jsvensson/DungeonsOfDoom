@@ -9,6 +9,7 @@ namespace Dungeons
     enum MoveInfo
     {
         Success,
+        Failed,
         Occupied,
         OutOfBounds,
     }
