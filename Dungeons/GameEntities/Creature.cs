@@ -24,28 +24,24 @@ namespace Dungeons
 
         public MoveInfo TryToMove(Direction dir, Tile[,] level)
         {
-            int newX;
-            int newY;
+            int newX = Position.X;
+            int newY = Position.Y;
             int maxX = level.GetUpperBound(0);
             int maxY = level.GetUpperBound(1);
 
             switch (dir)
             {
                 case Direction.North:
-                    newX = Position.X;
                     newY = Position.Y - 1;
                     break;
                 case Direction.South:
-                    newX = Position.X;
                     newY = Position.Y + 1;
                     break;
                 case Direction.West:
                     newX = Position.X - 1;
-                    newY = Position.Y;
                     break;
                 case Direction.East:
                     newX = Position.X + 1;
-                    newY = Position.Y;
                     break;
                 case Direction.NorthWest:
                     newX = Position.X - 1;
@@ -63,8 +59,6 @@ namespace Dungeons
                     newX = Position.X - 1;
                     newY = Position.Y + 1;
                     break;
-                default:
-                    return MoveInfo.Failed;
             }
 
             // Check level bounds so we don't try to walk off the level
