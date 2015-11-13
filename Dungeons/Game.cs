@@ -93,7 +93,6 @@ namespace Dungeons
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey();
             Tile newTile = null;
-            Monster monster = null;
             int newX = player.Position.X;
             int newY = player.Position.Y;
             int maxX = level.GetUpperBound(0);
@@ -108,7 +107,6 @@ namespace Dungeons
                     if (moveResult == MoveInfo.Occupied)
                     {
                         newTile = level[player.Position.X, player.Position.Y - 1];
-                        monster = newTile.Monster;
                     }
                     break;
                 case ConsoleKey.DownArrow:
@@ -117,7 +115,6 @@ namespace Dungeons
                     if (moveResult == MoveInfo.Occupied)
                     {
                         newTile = level[player.Position.X, player.Position.Y + 1];
-                        monster = newTile.Monster;
                     }
                     break;
                 case ConsoleKey.LeftArrow:
@@ -126,7 +123,6 @@ namespace Dungeons
                     if (moveResult == MoveInfo.Occupied)
                     {
                         newTile = level[player.Position.X - 1, player.Position.Y];
-                        monster = newTile.Monster;
                     }
                     break;
                 case ConsoleKey.RightArrow:
@@ -135,7 +131,6 @@ namespace Dungeons
                     if (moveResult == MoveInfo.Occupied)
                     {
                         newTile = level[player.Position.X + 1, player.Position.Y];
-                        monster = newTile.Monster;
                     }
                     break;
                 case ConsoleKey.P:
@@ -144,8 +139,9 @@ namespace Dungeons
             }
 
             // Fight if we encountered a monster
-            if (monster != null)
+            if (newTile?.Monster != null)
             {
+                Monster monster = newTile.Monster;
                 int healthLeft = player.Fight(monster);
                 if (healthLeft >= 1)
                 {
