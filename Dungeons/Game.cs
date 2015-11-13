@@ -162,18 +162,16 @@ namespace Dungeons
                     if (newTile != null)
                     {
                         newTile.Monster = null;
-
                     }
                 }
+
+                // Check player state
+                if (player.Health <= 0 && monster != null)
+                {
+                    WriteStatus($"You have been slain by a {monster.Name}... Rest in pieces.");
+                    Console.ReadKey();
+                }
             }
-
-            // Check player state
-            if (player.Health <= 0 && monster != null)
-            {
-                WriteStatus($"You have been slain by a {monster.Name}... Rest in pieces.");
-            }
-
-
         }
 
         private void PickupItem()
