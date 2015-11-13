@@ -26,6 +26,8 @@ namespace Dungeons
         {
             int newX;
             int newY;
+            int maxX = level.GetUpperBound(0);
+            int maxY = level.GetUpperBound(1);
 
             switch (dir)
             {
@@ -64,7 +66,14 @@ namespace Dungeons
                 default:
                     return false;
             }
-            if (level[newX, newY].HasMonster)
+
+            // Check level bounds so we don't try to walk off the level
+            if (newX < 0 || newX > maxX ||
+                newY < 0 || newY > maxY)
+            {
+                return false;
+            }
+            else if (level[newX, newY].HasMonster)
             {
                 return false;
             }
