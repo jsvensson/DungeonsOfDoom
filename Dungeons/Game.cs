@@ -240,7 +240,7 @@ namespace Dungeons
             {
                 for (int x = 0; x < worldWidth; x++)
                 {
-                    level[x, y] = new Tile(random.Next(100 + 1));
+                    level[x, y] = new Floor(random.Next(100 + 1), '.', ConsoleColor.White);
                 }
             }
         }

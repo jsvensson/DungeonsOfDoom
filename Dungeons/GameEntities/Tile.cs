@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Dungeons
 {
-    class Tile
+    abstract class Tile : GameEntity
     {
-        public Tile(int brightness)
+        public Tile(int brightness, char symbol, ConsoleColor color) :
+            base(symbol, color)
         {
+            IsWalkable = true;
             Brightness = brightness;
             Item = null;
         }
@@ -33,5 +35,6 @@ namespace Dungeons
         public int Brightness { get; set; }
         public Item Item { get; set; }
         public Monster Monster { get; set; }
+        public bool IsWalkable { get; set; }
     }
 }
