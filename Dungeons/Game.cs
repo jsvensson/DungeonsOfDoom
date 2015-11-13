@@ -48,7 +48,7 @@ namespace Dungeons
         private bool CheckForItems()
         {
             Tile tile = level[player.Position.X, player.Position.Y];
-            if (tile.Item != null)
+            if (tile.HasItems)
             {
                 Item item = tile.Item;
                 WriteStatus($"A {item.Name} lies here.");
