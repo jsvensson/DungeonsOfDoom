@@ -266,10 +266,12 @@ namespace Dungeons
         private Point GetRandomWalkablePosition()
         {
             Point point;
+            Tile tile;
             do
             {
                 point = GetRandomPosition();
-            } while (level[point.X, point.Y].HasMonster);
+                tile = level[point.X, point.Y];
+            } while (tile.HasMonster || tile.IsNotWalkable);
 
             return point;
         }

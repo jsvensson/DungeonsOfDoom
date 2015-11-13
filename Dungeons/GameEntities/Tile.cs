@@ -36,5 +36,12 @@ namespace Dungeons
         public Item Item { get; set; }
         public Monster Monster { get; set; }
         public bool IsWalkable { get; set; }
+        public bool IsNotWalkable
+        {
+            get
+            {
+                return !IsWalkable;
+            }
+        }
     }
 }
