@@ -98,12 +98,14 @@ namespace Dungeons
             int newY = player.Position.Y;
             int maxX = level.GetUpperBound(0);
             int maxY = level.GetUpperBound(1);
+            MoveInfo moveResult;
 
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
                 case ConsoleKey.NumPad8:
-                    if (!player.Move(Direction.North, level))
+                    moveResult = player.TryToMove(Direction.North, level);
+                    if (moveResult == MoveInfo.Occupied)
                     {
                         newTile = level[player.Position.X, player.Position.Y - 1];
                         monster = newTile.Monster;
@@ -111,7 +113,8 @@ namespace Dungeons
                     break;
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.NumPad2:
-                    if (!player.Move(Direction.South, level))
+                    moveResult = player.TryToMove(Direction.South, level);
+                    if (moveResult == MoveInfo.Occupied)
                     {
                         newTile = level[player.Position.X, player.Position.Y + 1];
                         monster = newTile.Monster;
@@ -119,7 +122,8 @@ namespace Dungeons
                     break;
                 case ConsoleKey.LeftArrow:
                 case ConsoleKey.NumPad4:
-                    if (!player.Move(Direction.West, level))
+                    moveResult = player.TryToMove(Direction.West, level);
+                    if (moveResult == MoveInfo.Occupied)
                     {
                         newTile = level[player.Position.X - 1, player.Position.Y];
                         monster = newTile.Monster;
@@ -127,7 +131,8 @@ namespace Dungeons
                     break;
                 case ConsoleKey.RightArrow:
                 case ConsoleKey.NumPad6:
-                    if (!player.Move(Direction.East, level))
+                    moveResult = player.TryToMove(Direction.East, level);
+                    if (moveResult == MoveInfo.Occupied)
                     {
                         newTile = level[player.Position.X + 1, player.Position.Y];
                         monster = newTile.Monster;
