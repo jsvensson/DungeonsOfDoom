@@ -22,14 +22,14 @@ namespace Dungeons
             return opponent.Health;
         }
 
-        public MoveInfo TryToMove(Direction dir, Tile[,] level)
+        public MoveInfo TryToMove(Direction direction, Tile[,] level)
         {
             int newX = Position.X;
             int newY = Position.Y;
             int maxX = level.GetUpperBound(0);
             int maxY = level.GetUpperBound(1);
 
-            switch (dir)
+            switch (direction)
             {
                 case Direction.North:
                     newY = Position.Y - 1;
