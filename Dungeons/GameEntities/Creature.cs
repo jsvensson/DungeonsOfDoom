@@ -22,7 +22,7 @@ namespace Dungeons
             return opponent.Health;
         }
 
-        public bool Move(Direction dir, Tile[,] level)
+        public MoveInfo TryToMove(Direction dir, Tile[,] level)
         {
             int newX;
             int newY;
@@ -64,23 +64,23 @@ namespace Dungeons
                     newY = Position.Y + 1;
                     break;
                 default:
-                    return false;
+                    return MoveInfo.Failed;
             }
 
             // Check level bounds so we don't try to walk off the level
             if (newX < 0 || newX > maxX ||
                 newY < 0 || newY > maxY)
             {
-                return false;
+                return MoveInfo.OutOfBounds;
             }
             else if (level[newX, newY].HasMonster)
             {
-                return false;
+                return MoveInfo.Occupied;
             }
             else
             {
                 Position = new Point(newX, newY);
-                return true;
+                return MoveInfo.Success;
             }
         }
 
