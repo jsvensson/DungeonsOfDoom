@@ -215,7 +215,7 @@ namespace Dungeons
                 }
             }
 
-            // Draw player last
+            // Draw creatures after items, in case a creature stands on an item
             foreach (Creature creature in creatures)
             {
                 DrawCharAtPos(creature.Position.X, creature.Position.Y, creature.Symbol, creature.Color);
