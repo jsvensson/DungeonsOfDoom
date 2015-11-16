@@ -95,8 +95,6 @@ namespace Dungeons
             Tile newTile = null;
             int newX = player.Position.X;
             int newY = player.Position.Y;
-            int maxX = level.GetUpperBound(0);
-            int maxY = level.GetUpperBound(1);
             MoveInfo moveResult;
 
             switch (keyInfo.Key)
