@@ -93,8 +93,6 @@ namespace Dungeons
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey();
             Tile newTile = null;
-            int newX = player.Position.X;
-            int newY = player.Position.Y;
             MoveInfo moveResult;
 
             switch (keyInfo.Key)
