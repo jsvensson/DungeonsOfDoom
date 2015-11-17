@@ -9,7 +9,7 @@ namespace Dungeons
     class Player : Creature
     {
         public Player(string name, int health, int attackValue):
-            base(name, health, attackValue, '@', ConsoleColor.White)
+            base(name, health, attackValue, '@', ConsoleColor.Yellow)
         {
         }
 
