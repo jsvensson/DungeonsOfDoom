@@ -71,7 +71,7 @@ namespace Dungeons
             {
                 return MoveInfo.Occupied;
             }
-            else if(level[newX, newY].IsNotWalkable)
+            else if(level[newX, newY] is Wall)
             {
                 return MoveInfo.BlockedByWall;
             }
