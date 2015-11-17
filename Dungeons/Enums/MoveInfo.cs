@@ -11,6 +11,7 @@ namespace Dungeons
         Success,
         Failed,
         Occupied,
+        BlockedByWall,
         OutOfBounds,
     }
 }

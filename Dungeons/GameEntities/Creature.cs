@@ -71,6 +71,10 @@ namespace Dungeons
             {
                 return MoveInfo.Occupied;
             }
+            else if(level[newX, newY].IsNotWalkable)
+            {
+                return MoveInfo.BlockedByWall;
+            }
             else
             {
                 Position = new Point(newX, newY);
