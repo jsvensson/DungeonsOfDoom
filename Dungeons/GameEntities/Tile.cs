@@ -18,18 +18,12 @@ namespace Dungeons
 
         public bool HasItems
         {
-            get
-            {
-                return Item != null;
-            }
+            get { return Item != null; }
         }
 
         public bool HasMonster
         {
-            get
-            {
-                return Monster != null;
-            }
+            get { return Monster != null; }
         }
 
         public int Brightness { get; set; }
@@ -38,10 +32,7 @@ namespace Dungeons
         public bool IsWalkable { get; set; }
         public bool IsNotWalkable
         {
-            get
-            {
-                return !IsWalkable;
-            }
+            get { return !IsWalkable; }
         }
     }
 }
