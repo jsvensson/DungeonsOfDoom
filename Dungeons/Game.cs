@@ -9,18 +9,20 @@ namespace Dungeons
     // Den enda klassen som får använda I/O, tex Console.WriteLine()
     class Game
     {
-        int worldWidth;
-        int worldHeight;
+        int screenWidth, screenHeight;
+        int levelWidth, levelHeight;
         Tile[,] level;
         Random random = new Random();
         Player player;
         string lastStatus;
         List<Creature> creatures;
 
-        public Game(int worldWidth, int worldHeight)
+        public Game(int width, int height)
         {
-            this.worldWidth = worldWidth;
-            this.worldHeight = worldHeight -1;
+            screenWidth = width;
+            screenHeight = height;
+            levelWidth = width;
+            levelHeight = height - 1;
             creatures = new List<Creature>();
         }
 
@@ -199,9 +201,9 @@ namespace Dungeons
             lastStatus = "";
 
             // Loop through all tiles and draw items
-            for (int x = 0; x < worldWidth; x++)
+            for (int x = 0; x < levelWidth; x++)
             {
-                for (int y = 0; y < worldHeight; y++)
+                for (int y = 0; y < levelHeight; y++)
                 {
                     Tile tile = level[x, y];
                     if(tile.Item != null)
@@ -229,12 +231,12 @@ namespace Dungeons
         {
             // Anropar konstruktorn för en array av Room
             // Skapar 2d-array för våra rum, värde null
-            level = new Tile[worldWidth, worldHeight];
+            level = new Tile[levelWidth, levelHeight];
 
             // Skapa rummen
-            for (int y = 0; y < worldHeight; y++)
+            for (int y = 0; y < levelHeight; y++)
             {
-                for (int x = 0; x < worldWidth; x++)
+                for (int x = 0; x < levelWidth; x++)
                 {
                     level[x, y] = new Floor(random.Next(100 + 1), '.', ConsoleColor.White);
                 }
@@ -253,8 +255,8 @@ namespace Dungeons
 
         private Point GetRandomPosition()
         {
-            int x = random.Next(worldWidth);
-            int y = random.Next(worldHeight);
+            int x = random.Next(levelWidth);
+            int y = random.Next(levelHeight);
 
             return new Point(x, y);
         }
@@ -274,7 +276,7 @@ namespace Dungeons
 
         private void WriteStatus(string message)
         {
-            Console.SetCursorPosition(0, worldHeight);
+            Console.SetCursorPosition(0, levelHeight);
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Write(message);
             lastStatus = message;
