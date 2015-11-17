@@ -65,7 +65,7 @@ namespace Dungeons
             for (int i = 0; i < 10; i++)
             {
                 Item sword = new Item("Sword", 5, '/', ConsoleColor.White);
-                Point levelPos = GetRandomPosition();
+                Point levelPos = GetRandomWalkablePosition();
                 level[levelPos.X, levelPos.Y].Item = sword;
             }
         }
