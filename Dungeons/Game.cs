@@ -28,10 +28,13 @@ namespace Dungeons
 
         public void Start()
         {
-            CreateRooms();
+            //CreateRooms();
+            CreateLevel(45);
+            level = IterateLevel(level, 6);
+            level = IterateLevel(level, 4);
             CreatePlayer();
-            CreateMonsters();
-            CreateItems();
+            //CreateMonsters();
+            //CreateItems();
 
             // Hide cursor at game start
             Console.CursorVisible = false;
@@ -90,6 +93,104 @@ namespace Dungeons
                 creatures.Add(g);
             }
         }
+
+        void CreateLevel(int fillRate)
+        {
+            level = new Tile[levelWidth, levelHeight];
+            Floor floor = new Floor(10, '.', ConsoleColor.Black);
+            Wall wall = new Wall(0, '#', ConsoleColor.Gray);
+            Random r = new Random();
+
+            for (int y = 0; y < levelHeight; y++)
+            {
+                for (int x = 0; x < levelWidth; x++)
+                {
+                    if (r.Next(100) + 1 <= fillRate)
+                    {
+                        level[x, y] = new Floor(10, '.', ConsoleColor.DarkGray);
+                    }
+                    else
+                    {
+                        level[x, y] = new Wall(0, '#', ConsoleColor.Gray);
+                    }
+                }
+            }
+
+            // Fill outer edge with walls
+            for (int row = 0; row < levelHeight; row++)
+            {
+                level[0, row] = wall;
+                level[levelWidth - 1, row] = wall;
+            }
+            for (int col = 0; col < levelWidth; col++)
+            {
+                level[col, 0] = wall;
+                level[col, levelHeight - 1] = wall;
+            }
+        }
+
+        int CountWalls(Point position)
+        {
+            return CountWalls(position.X, position.Y);
+        }
+
+        int CountWalls(int x, int y)
+        {
+            int count = 0;
+
+            for (int row = -1; row <= 1; row++)
+            {
+                for (int col = -1; col <= 1; col++)
+                {
+                    int posX = col + x;
+                    int posY = row + y;
+                    // Check level boundaries
+                    if (posX < 0 || posX >= levelWidth ||
+                        posY < 0 || posY >= levelHeight)
+                    {
+                        // Outside boundary, counts as a wall
+                        count++;
+                    }
+                    else  // Within boundaries, check if wall
+                    {
+                        if (level[posX, posY] is Wall)
+                        {
+                            count++;
+                        }
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        Tile[,] IterateLevel(Tile[,] level, int neighbors)
+        {
+            int width = level.GetUpperBound(0) + 1;
+            int height = level.GetUpperBound(1) + 1;
+            Tile[,] newLevel = new Tile[width, height];
+
+            Floor floor = new Floor(10, '.', ConsoleColor.DarkGray);
+            Wall wall = new Wall(0, '#', ConsoleColor.Gray);
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    if (CountWalls(x, y) >= neighbors)
+                    {
+                        newLevel[x, y] = wall;
+                    }
+                    else
+                    {
+                        newLevel[x, y] = floor;
+                    }
+                }
+            }
+
+            return newLevel;
+        }
+       
 
         void AskForCommand()
         {
