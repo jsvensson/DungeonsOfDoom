@@ -210,6 +210,10 @@ namespace Dungeons
                     {
                         DrawCharAtPos(x, y, tile.Item.Symbol, tile.Item.Color);
                     }
+                    else
+                    {
+                        DrawCharAtPos(x, y, tile.Symbol, tile.Color);
+                    }
                 }
             }
 
