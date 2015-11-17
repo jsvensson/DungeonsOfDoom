@@ -12,5 +12,12 @@ namespace Dungeons
             base(brightness, symbol, color)
         {
         }
+        public override bool IsWalkable
+        {
+            get
+            {
+                return !HasMonster;
+            }
+        }
     }
 }
