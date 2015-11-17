@@ -92,7 +92,7 @@ namespace Dungeons
         void AskForCommand()
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey();
-            Tile newTile = null;
+            Tile occupiedTile = null;
             MoveInfo moveResult;
 
             switch (keyInfo.Key)
@@ -102,7 +102,7 @@ namespace Dungeons
                     moveResult = player.TryToMove(Direction.North, level);
                     if (moveResult == MoveInfo.Occupied)
                     {
-                        newTile = level[player.Position.X, player.Position.Y - 1];
+                        occupiedTile = level[player.Position.X, player.Position.Y - 1];
                     }
                     break;
                 case ConsoleKey.DownArrow:
@@ -110,7 +110,7 @@ namespace Dungeons
                     moveResult = player.TryToMove(Direction.South, level);
                     if (moveResult == MoveInfo.Occupied)
                     {
-                        newTile = level[player.Position.X, player.Position.Y + 1];
+                        occupiedTile = level[player.Position.X, player.Position.Y + 1];
                     }
                     break;
                 case ConsoleKey.LeftArrow:
@@ -118,7 +118,7 @@ namespace Dungeons
                     moveResult = player.TryToMove(Direction.West, level);
                     if (moveResult == MoveInfo.Occupied)
                     {
-                        newTile = level[player.Position.X - 1, player.Position.Y];
+                        occupiedTile = level[player.Position.X - 1, player.Position.Y];
                     }
                     break;
                 case ConsoleKey.RightArrow:
@@ -126,7 +126,7 @@ namespace Dungeons
                     moveResult = player.TryToMove(Direction.East, level);
                     if (moveResult == MoveInfo.Occupied)
                     {
-                        newTile = level[player.Position.X + 1, player.Position.Y];
+                        occupiedTile = level[player.Position.X + 1, player.Position.Y];
                     }
                     break;
                 case ConsoleKey.P:
@@ -135,9 +135,9 @@ namespace Dungeons
             }
 
             // Fight if we encountered a monster
-            if (newTile?.Monster != null)
+            if (occupiedTile?.Monster != null)
             {
-                Monster monster = newTile.Monster;
+                Monster monster = occupiedTile.Monster;
                 int healthLeft = player.Fight(monster);
                 if (healthLeft >= 1)
                 {
@@ -155,9 +155,9 @@ namespace Dungeons
                     // TODO: remove creature list from game
                     creatures.Remove(monster);
                     // Remove from tile
-                    if (newTile != null)
+                    if (occupiedTile != null)
                     {
-                        newTile.Monster = null;
+                        occupiedTile.Monster = null;
                     }
                 }
 
