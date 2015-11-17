@@ -93,7 +93,7 @@ namespace Dungeons
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey();
             Tile occupiedTile = null;
-            MoveInfo moveResult;
+            MoveInfo moveResult = MoveInfo.Success;
 
             switch (keyInfo.Key)
             {
@@ -132,6 +132,12 @@ namespace Dungeons
                 case ConsoleKey.P:
                     PickupItem();
                     break;
+            }
+
+            // Bonk if we walk into a wall
+            if (moveResult == MoveInfo.BlockedByWall)
+            {
+                WriteStatus("Bonk!");
             }
 
             // Fight if we encountered a monster
