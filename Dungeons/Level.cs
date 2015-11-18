@@ -8,25 +8,26 @@ namespace Dungeons
 
         public Level(int width, int height, int fillRate)
         {
-            this.width = width;
-            this.height = height;
+            Width = width;
+            Height = height;
             Map = new Tile[width, height];
             Create(fillRate);
         }
         public Tile[,] Map { get; private set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
 
         public void Create(int fillRate)
         {
-            Map = new Tile[width, height];
+            Map = new Tile[Width, Height];
             Floor floor = new Floor(10, '.', ConsoleColor.DarkGray);
             Wall wall = new Wall(0, '#', ConsoleColor.Gray);
-            // TODO: Use static Random class
-            Random r = new Random();
 
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < Height; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < Width; x++)
                 {
+                    // TODO: Use static Random class
                     if (random.Next(100) + 1 <= fillRate)
                     {
                         Map[x, y] = wall;
@@ -39,15 +40,15 @@ namespace Dungeons
             }
 
             // Create edge walls
-            for (int row = 0; row < height; row++)
+            for (int row = 0; row < Height; row++)
             {
                 Map[0, row] = wall;
-                Map[width - 1, row] = wall;
+                Map[Width - 1, row] = wall;
             }
-            for (int col = 0; col < width; col++)
+            for (int col = 0; col < Width; col++)
             {
                 Map[col, 0] = wall;
-                Map[col, height - 1] = wall;
+                Map[col, Height - 1] = wall;
             }
         }
 
@@ -62,8 +63,8 @@ namespace Dungeons
                     int posX = col + x;
                     int posY = row + y;
                     // Check level boundaries
-                    if (posX < 0 || posX >= width ||
-                        posY < 0 || posY >= height)
+                    if (posX < 0 || posX >= Width ||
+                        posY < 0 || posY >= Height)
                     {
                         // Outside boundary, counts as a wall
                         count++;
@@ -85,14 +86,14 @@ namespace Dungeons
 
         public void Iterate(int neighbors)
         {
-            Tile[,] nextMapGeneration = new Tile[width, height];
+            Tile[,] nextMapGeneration = new Tile[Width, Height];
 
             Floor floor = new Floor(10, '.', ConsoleColor.DarkGray);
             Wall wall = new Wall(0, '#', ConsoleColor.Gray);
 
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < Height; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < Width; x++)
                 {
                     if (CountWalls(x, y) >= neighbors)
                     {
