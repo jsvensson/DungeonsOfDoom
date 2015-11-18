@@ -196,7 +196,7 @@ namespace Dungeons
 
         void AskForCommand()
         {
-            ConsoleKeyInfo keyInfo = Console.ReadKey();
+            ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             Tile occupiedTile = null;
             Tile oldTile = level[player.Position.X, player.Position.Y];
             Point affectedTilePos = new Point();
