@@ -9,8 +9,9 @@ namespace Dungeons
     // Den enda klassen som får använda I/O, tex Console.WriteLine()
     class Game
     {
-        int screenWidth, screenHeight;
-        int levelWidth, levelHeight;
+        readonly int screenWidth, screenHeight;
+        readonly int levelWidth, levelHeight;
+        readonly Random random = new Random();
         Tile[,] level;
         Random random = new Random();
         Player player;
