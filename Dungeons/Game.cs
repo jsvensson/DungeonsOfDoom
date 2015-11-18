@@ -235,23 +235,28 @@ namespace Dungeons
             {
                 for (int y = 0; y < levelHeight; y++)
                 {
+                    Point pos = new Point(x, y);
                     Tile tile = level.Map[x, y];
-                    if(tile.Item != null)
+                    if(tile.HasItems && !tile.HasMonster)
                     {
-                        DrawCharAtPos(x, y, tile.Item.Symbol, tile.Item.Color);
+                        // Has item, no monster - draw item
+                        DrawCharAtPos(pos, tile.Item);
+                    }
+                    else if(tile.HasMonster && !tile.HasItems)
+                    {
+                        // Has monster, no item - draw monster
+                        DrawCharAtPos(pos, tile.Monster);
                     }
                     else
                     {
-                        DrawCharAtPos(x, y, tile.Symbol, tile.Color);
+                        // Just draw the floor tile
+                        DrawCharAtPos(pos, tile);
                     }
                 }
             }
 
-            // Draw creatures after items, in case a creature stands on an item
-            foreach (Creature creature in creatures)
-            {
-                DrawCharAtPos(creature.Position.X, creature.Position.Y, creature.Symbol, creature.Color);
-            }
+            // Draw player last
+            DrawCharAtPos(player.Position, player);
         }
 
         private void DrawCharAtPos(int x, int y, char character, ConsoleColor color)
@@ -264,6 +269,11 @@ namespace Dungeons
         private void DrawCharAtPos(Point position, char character, ConsoleColor color)
         {
             DrawCharAtPos(position.X, position.Y, character, color);
+        }
+
+        private void DrawCharAtPos(Point position, GameEntity entity)
+        {
+            DrawCharAtPos(position.X, position.Y, entity.Symbol, entity.Color);
         }
 
         private void CreatePlayer()
