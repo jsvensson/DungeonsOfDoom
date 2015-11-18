@@ -36,7 +36,7 @@ namespace Dungeons
             // Hide cursor at game start
             Console.CursorVisible = false;
 
-            player.Position = GetRandomWalkablePosition();
+            player.Position = level.GetRandomEmptyPosition();
             DrawFullGame();
             WriteStatus("You have entered a dark place. You are likely to be eaten by a grue.");
             do
@@ -66,7 +66,7 @@ namespace Dungeons
             for (int i = 0; i < 10; i++)
             {
                 Item sword = new Item("Sword", 5, '/', ConsoleColor.White);
-                Point levelPos = GetRandomWalkablePosition();
+                Point levelPos = level.GetRandomEmptyPosition();
                 level.Map[levelPos.X, levelPos.Y].Item = sword;
             }
         }
@@ -76,7 +76,7 @@ namespace Dungeons
             for (int i = 0; i < 10; i++)
             {
                 Troll t = new Troll("Troll", 15, 8);
-                Point pos = GetRandomWalkablePosition();
+                Point pos = level.GetRandomEmptyPosition();
                 t.Position = pos;
                 level.Map[pos.X, pos.Y].Monster = t;
                 creatures.Add(t);
@@ -85,7 +85,7 @@ namespace Dungeons
             for (int i = 0; i < 25; i++)
             {
                 Goblin g = new Goblin("Cowardly Goblin", 10, 3);
-                Point pos = GetRandomWalkablePosition();
+                Point pos = level.GetRandomEmptyPosition();
                 g.Position = pos;
                 level.Map[pos.X, pos.Y].Monster = g;
                 creatures.Add(g);
@@ -274,27 +274,6 @@ namespace Dungeons
 
             player = new Player(name, 25, attack);
             creatures.Add(player);
-        }
-
-        private Point GetRandomPosition()
-        {
-            int x = random.Next(levelWidth);
-            int y = random.Next(levelHeight);
-
-            return new Point(x, y);
-        }
-
-        private Point GetRandomWalkablePosition()
-        {
-            Point point;
-            Tile tile;
-            do
-            {
-                point = GetRandomPosition();
-                tile = level.Map[point.X, point.Y];
-            } while (tile.HasMonster || tile.IsNotWalkable);
-
-            return point;
         }
 
         private void WriteStatus(string message)

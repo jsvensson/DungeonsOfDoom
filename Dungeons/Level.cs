@@ -107,5 +107,26 @@ namespace Dungeons
 
             Map = nextMapGeneration;
         }
+
+        public Point GetRandomPosition()
+        {
+            int x = random.Next(Width);
+            int y = random.Next(Height);
+
+            return new Point(x, y);
+        }
+
+        public Point GetRandomEmptyPosition()
+        {
+            Point point;
+            Tile tile;
+            do
+            {
+                point = GetRandomPosition();
+                tile = Map[point.X, point.Y];
+            } while (tile.HasMonster || tile.IsNotWalkable);
+
+            return point;
+        }
     }
 }
