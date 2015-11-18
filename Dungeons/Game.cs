@@ -106,11 +106,11 @@ namespace Dungeons
                 {
                     if (r.Next(100) + 1 <= fillRate)
                     {
-                        level[x, y] = floor;
+                        level[x, y] = wall;
                     }
                     else
                     {
-                        level[x, y] = wall;
+                        level[x, y] = floor;
                     }
                 }
             }
