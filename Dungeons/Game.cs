@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Dungeons
 {
-    // Den enda klassen som får använda I/O, tex Console.WriteLine()
     class Game
     {
         readonly int screenWidth, screenHeight;
         readonly int levelWidth, levelHeight;
         readonly Random random = new Random();
         Tile[,] level;
-        Random random = new Random();
         Player player;
         string lastStatus;
         List<Creature> creatures;
