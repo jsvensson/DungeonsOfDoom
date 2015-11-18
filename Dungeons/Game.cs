@@ -42,7 +42,7 @@ namespace Dungeons
             WriteStatus("You have entered a dark place. You are likely to be eaten by a grue.");
             do
             {
-                DrawGame();
+                DrawFullGame();
                 AskForCommand();
                 CheckForItems();
                 //player.Health--;
@@ -292,7 +292,7 @@ namespace Dungeons
                 WriteStatus("You grasp at air.");
         }
 
-        private void DrawGame()
+        private void DrawFullGame()
         {
             Console.Clear();
             Console.ResetColor();
