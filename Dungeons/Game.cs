@@ -107,11 +107,11 @@ namespace Dungeons
                 {
                     if (r.Next(100) + 1 <= fillRate)
                     {
-                        level[x, y] = new Floor(10, '.', ConsoleColor.DarkGray);
+                        level[x, y] = floor;
                     }
                     else
                     {
-                        level[x, y] = new Wall(0, '#', ConsoleColor.Gray);
+                        level[x, y] = wall;
                     }
                 }
             }
