@@ -4,7 +4,7 @@ namespace Dungeons
 {
     class Level
     {
-        int width, height;
+        Random random = new Random();
 
         public Level(int width, int height, int fillRate)
         {
@@ -27,7 +27,7 @@ namespace Dungeons
             {
                 for (int x = 0; x < width; x++)
                 {
-                    if (r.Next(100) + 1 <= fillRate)
+                    if (random.Next(100) + 1 <= fillRate)
                     {
                         Map[x, y] = wall;
                     }
