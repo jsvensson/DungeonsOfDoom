@@ -11,6 +11,7 @@ namespace Dungeons
         readonly int screenWidth, screenHeight;
         readonly int levelWidth, levelHeight;
         readonly Random random = new Random();
+        static List<Blixel> blixels = new List<Blixel>();
         Tile[,] level;
         Player player;
         string lastStatus;
@@ -39,10 +40,12 @@ namespace Dungeons
             Console.CursorVisible = false;
 
             player.Position = GetRandomWalkablePosition();
+            DrawFullGame();
             WriteStatus("You have entered a dark place. You are likely to be eaten by a grue.");
             do
             {
-                DrawFullGame();
+                DrawGameBlits();
+                blixels.Clear();
                 AskForCommand();
                 CheckForItems();
                 //player.Health--;
@@ -195,40 +198,48 @@ namespace Dungeons
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey();
             Tile occupiedTile = null;
+            Tile oldTile = level[player.Position.X, player.Position.Y];
+            Point affectedTilePos = new Point();
+            Point oldPos = player.Position;
+            Blixel playerBlixel;
             MoveInfo moveResult = MoveInfo.Success;
 
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
                 case ConsoleKey.NumPad8:
-                    moveResult = player.TryToMove(Direction.North, level);
+                    moveResult = player.TryToMove(Direction.North, level, out playerBlixel);
                     if (moveResult == MoveInfo.Occupied)
                     {
                         occupiedTile = level[player.Position.X, player.Position.Y - 1];
+                        affectedTilePos = new Point(player.Position.X, player.Position.Y - 1);
                     }
                     break;
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.NumPad2:
-                    moveResult = player.TryToMove(Direction.South, level);
+                    moveResult = player.TryToMove(Direction.South, level, out playerBlixel);
                     if (moveResult == MoveInfo.Occupied)
                     {
                         occupiedTile = level[player.Position.X, player.Position.Y + 1];
+                        affectedTilePos = new Point(player.Position.X, player.Position.Y + 1);
                     }
                     break;
                 case ConsoleKey.LeftArrow:
                 case ConsoleKey.NumPad4:
-                    moveResult = player.TryToMove(Direction.West, level);
+                    moveResult = player.TryToMove(Direction.West, level, out playerBlixel);
                     if (moveResult == MoveInfo.Occupied)
                     {
                         occupiedTile = level[player.Position.X - 1, player.Position.Y];
+                        affectedTilePos = new Point(player.Position.X - 1, player.Position.Y);
                     }
                     break;
                 case ConsoleKey.RightArrow:
                 case ConsoleKey.NumPad6:
-                    moveResult = player.TryToMove(Direction.East, level);
+                    moveResult = player.TryToMove(Direction.East, level, out playerBlixel);
                     if (moveResult == MoveInfo.Occupied)
                     {
                         occupiedTile = level[player.Position.X + 1, player.Position.Y];
+                        affectedTilePos = new Point(player.Position.X + 1, player.Position.Y);
                     }
                     break;
                 case ConsoleKey.P:
@@ -241,9 +252,16 @@ namespace Dungeons
             {
                 WriteStatus("Bonk!");
             }
-
+            // Move succeeded, add blit for tile we moved from
+            else if (moveResult == MoveInfo.Success)
+            {
+                // Blit old tile
+                blixels.Add(new Blixel(oldPos, oldTile));
+                // Blit new player position
+                blixels.Add(new Blixel(player.Position, player));
+            }
             // Fight if we encountered a monster
-            if (occupiedTile?.Monster != null)
+            else if (occupiedTile?.Monster != null)
             {
                 Monster monster = occupiedTile.Monster;
                 int healthLeft = player.Fight(monster);
@@ -267,6 +285,9 @@ namespace Dungeons
                     {
                         occupiedTile.Monster = null;
                     }
+
+                    // TODO: Blit floor on the tile
+                    //blixels.Add(new Blixel(affectedTilePos, occupiedTile.Symbol, occupiedTile.Color));
                 }
 
                 // Check player state
@@ -290,6 +311,17 @@ namespace Dungeons
             }
             else
                 WriteStatus("You grasp at air.");
+        }
+
+        private void DrawGameBlits()
+        {
+            if (blixels.Count >= 1)
+            {
+                foreach (Blixel blixel in blixels)
+                {
+                    DrawCharAtPos(blixel.Position, blixel.Symbol, blixel.Color);
+                }
+            }
         }
 
         private void DrawFullGame()
@@ -329,6 +361,11 @@ namespace Dungeons
             Console.ForegroundColor = color;
             Console.SetCursorPosition(x, y);
             Console.Write(character);
+        }
+
+        private void DrawCharAtPos(Point position, char character, ConsoleColor color)
+        {
+            DrawCharAtPos(position.X, position.Y, character, color);
         }
 
         private void CreateRooms()

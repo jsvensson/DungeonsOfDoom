@@ -22,8 +22,9 @@ namespace Dungeons
             return opponent.Health;
         }
 
-        public MoveInfo TryToMove(Direction direction, Tile[,] level)
+        public MoveInfo TryToMove(Direction direction, Tile[,] level, out Blixel blixel)
         {
+            blixel = null;
             int newX = Position.X;
             int newY = Position.Y;
             int maxX = level.GetUpperBound(0);
@@ -77,7 +78,9 @@ namespace Dungeons
             }
             else
             {
-                Position = new Point(newX, newY);
+                Point newPos = new Point(newX, newY);
+                blixel = new Blixel(newPos, this);
+                Position = newPos;
                 return MoveInfo.Success;
             }
         }
