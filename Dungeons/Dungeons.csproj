@@ -54,6 +54,7 @@
     <Compile Include="GameEntities\Item.cs" />
     <Compile Include="GameEntities\Creatures\Monster.cs" />
     <Compile Include="GameEntities\Creatures\Player.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

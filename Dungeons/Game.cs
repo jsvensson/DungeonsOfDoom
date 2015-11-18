@@ -12,7 +12,7 @@ namespace Dungeons
         readonly int levelWidth, levelHeight;
         readonly Random random = new Random();
         static List<Blixel> blixels = new List<Blixel>();
-        Tile[,] level;
+        Level level;
         Player player;
         string lastStatus;
         List<Creature> creatures;
@@ -28,13 +28,10 @@ namespace Dungeons
 
         public void Start()
         {
-            //CreateRooms();
-            CreateLevel(45);
-            level = IterateLevel(level, 6);
-            level = IterateLevel(level, 4);
+            level = new Level(levelWidth, levelHeight, 55);
+            level.Iterate(6);
+            level.Iterate(4);
             CreatePlayer();
-            //CreateMonsters();
-            //CreateItems();
 
             // Hide cursor at game start
             Console.CursorVisible = false;
@@ -48,13 +45,12 @@ namespace Dungeons
                 blixels.Clear();
                 AskForCommand();
                 CheckForItems();
-                //player.Health--;
             } while (player.Health > 0);
         }
 
         private bool CheckForItems()
         {
-            Tile tile = level[player.Position.X, player.Position.Y];
+            Tile tile = level.Map[player.Position.X, player.Position.Y];
             if (tile.HasItems)
             {
                 Item item = tile.Item;
@@ -71,7 +67,7 @@ namespace Dungeons
             {
                 Item sword = new Item("Sword", 5, '/', ConsoleColor.White);
                 Point levelPos = GetRandomWalkablePosition();
-                level[levelPos.X, levelPos.Y].Item = sword;
+                level.Map[levelPos.X, levelPos.Y].Item = sword;
             }
         }
 
@@ -82,7 +78,7 @@ namespace Dungeons
                 Troll t = new Troll("Troll", 15, 8);
                 Point pos = GetRandomWalkablePosition();
                 t.Position = pos;
-                level[pos.X, pos.Y].Monster = t;
+                level.Map[pos.X, pos.Y].Monster = t;
                 creatures.Add(t);
             }
 
@@ -91,114 +87,16 @@ namespace Dungeons
                 Goblin g = new Goblin("Cowardly Goblin", 10, 3);
                 Point pos = GetRandomWalkablePosition();
                 g.Position = pos;
-                level[pos.X, pos.Y].Monster = g;
+                level.Map[pos.X, pos.Y].Monster = g;
                 creatures.Add(g);
             }
         }
-
-        void CreateLevel(int fillRate)
-        {
-            level = new Tile[levelWidth, levelHeight];
-            Floor floor = new Floor(10, '.', ConsoleColor.DarkGray);
-            Wall wall = new Wall(0, '#', ConsoleColor.Gray);
-            Random r = new Random();
-
-            for (int y = 0; y < levelHeight; y++)
-            {
-                for (int x = 0; x < levelWidth; x++)
-                {
-                    if (r.Next(100) + 1 <= fillRate)
-                    {
-                        level[x, y] = wall;
-                    }
-                    else
-                    {
-                        level[x, y] = floor;
-                    }
-                }
-            }
-
-            // Fill outer edge with walls
-            for (int row = 0; row < levelHeight; row++)
-            {
-                level[0, row] = wall;
-                level[levelWidth - 1, row] = wall;
-            }
-            for (int col = 0; col < levelWidth; col++)
-            {
-                level[col, 0] = wall;
-                level[col, levelHeight - 1] = wall;
-            }
-        }
-
-        int CountWalls(Point position)
-        {
-            return CountWalls(position.X, position.Y);
-        }
-
-        int CountWalls(int x, int y)
-        {
-            int count = 0;
-
-            for (int row = -1; row <= 1; row++)
-            {
-                for (int col = -1; col <= 1; col++)
-                {
-                    int posX = col + x;
-                    int posY = row + y;
-                    // Check level boundaries
-                    if (posX < 0 || posX >= levelWidth ||
-                        posY < 0 || posY >= levelHeight)
-                    {
-                        // Outside boundary, counts as a wall
-                        count++;
-                    }
-                    else  // Within boundaries, check if wall
-                    {
-                        if (level[posX, posY] is Wall)
-                        {
-                            count++;
-                        }
-                    }
-                }
-            }
-
-            return count;
-        }
-
-        Tile[,] IterateLevel(Tile[,] level, int neighbors)
-        {
-            int width = level.GetUpperBound(0) + 1;
-            int height = level.GetUpperBound(1) + 1;
-            Tile[,] newLevel = new Tile[width, height];
-
-            Floor floor = new Floor(10, '.', ConsoleColor.DarkGray);
-            Wall wall = new Wall(0, '#', ConsoleColor.Gray);
-
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    if (CountWalls(x, y) >= neighbors)
-                    {
-                        newLevel[x, y] = wall;
-                    }
-                    else
-                    {
-                        newLevel[x, y] = floor;
-                    }
-                }
-            }
-
-            return newLevel;
-        }
-       
 
         void AskForCommand()
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             Tile occupiedTile = null;
-            Tile oldTile = level[player.Position.X, player.Position.Y];
+            Tile oldTile = level.Map[player.Position.X, player.Position.Y];
             Point affectedTilePos = new Point();
             Point oldPos = player.Position;
             Blixel playerBlixel;
@@ -208,37 +106,37 @@ namespace Dungeons
             {
                 case ConsoleKey.UpArrow:
                 case ConsoleKey.NumPad8:
-                    moveResult = player.TryToMove(Direction.North, level, out playerBlixel);
+                    moveResult = player.TryToMove(Direction.North, level.Map, out playerBlixel);
                     if (moveResult == MoveInfo.Occupied)
                     {
-                        occupiedTile = level[player.Position.X, player.Position.Y - 1];
+                        occupiedTile = level.Map[player.Position.X, player.Position.Y - 1];
                         affectedTilePos = new Point(player.Position.X, player.Position.Y - 1);
                     }
                     break;
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.NumPad2:
-                    moveResult = player.TryToMove(Direction.South, level, out playerBlixel);
+                    moveResult = player.TryToMove(Direction.South, level.Map, out playerBlixel);
                     if (moveResult == MoveInfo.Occupied)
                     {
-                        occupiedTile = level[player.Position.X, player.Position.Y + 1];
+                        occupiedTile = level.Map[player.Position.X, player.Position.Y + 1];
                         affectedTilePos = new Point(player.Position.X, player.Position.Y + 1);
                     }
                     break;
                 case ConsoleKey.LeftArrow:
                 case ConsoleKey.NumPad4:
-                    moveResult = player.TryToMove(Direction.West, level, out playerBlixel);
+                    moveResult = player.TryToMove(Direction.West, level.Map, out playerBlixel);
                     if (moveResult == MoveInfo.Occupied)
                     {
-                        occupiedTile = level[player.Position.X - 1, player.Position.Y];
+                        occupiedTile = level.Map[player.Position.X - 1, player.Position.Y];
                         affectedTilePos = new Point(player.Position.X - 1, player.Position.Y);
                     }
                     break;
                 case ConsoleKey.RightArrow:
                 case ConsoleKey.NumPad6:
-                    moveResult = player.TryToMove(Direction.East, level, out playerBlixel);
+                    moveResult = player.TryToMove(Direction.East, level.Map, out playerBlixel);
                     if (moveResult == MoveInfo.Occupied)
                     {
-                        occupiedTile = level[player.Position.X + 1, player.Position.Y];
+                        occupiedTile = level.Map[player.Position.X + 1, player.Position.Y];
                         affectedTilePos = new Point(player.Position.X + 1, player.Position.Y);
                     }
                     break;
@@ -301,7 +199,7 @@ namespace Dungeons
 
         private void PickupItem()
         {
-            Tile tile = level[player.Position.X, player.Position.Y];
+            Tile tile = level.Map[player.Position.X, player.Position.Y];
             if (tile.HasItems)
             {
                 Item item = tile.Item;
@@ -337,7 +235,7 @@ namespace Dungeons
             {
                 for (int y = 0; y < levelHeight; y++)
                 {
-                    Tile tile = level[x, y];
+                    Tile tile = level.Map[x, y];
                     if(tile.Item != null)
                     {
                         DrawCharAtPos(x, y, tile.Item.Symbol, tile.Item.Color);
@@ -368,22 +266,6 @@ namespace Dungeons
             DrawCharAtPos(position.X, position.Y, character, color);
         }
 
-        private void CreateRooms()
-        {
-            // Anropar konstruktorn för en array av Room
-            // Skapar 2d-array för våra rum, värde null
-            level = new Tile[levelWidth, levelHeight];
-
-            // Skapa rummen
-            for (int y = 0; y < levelHeight; y++)
-            {
-                for (int x = 0; x < levelWidth; x++)
-                {
-                    level[x, y] = new Floor(random.Next(100 + 1), '.', ConsoleColor.White);
-                }
-            }
-        }
-
         private void CreatePlayer()
         {
             Console.Write("Enter your name: ");
@@ -409,7 +291,7 @@ namespace Dungeons
             do
             {
                 point = GetRandomPosition();
-                tile = level[point.X, point.Y];
+                tile = level.Map[point.X, point.Y];
             } while (tile.HasMonster || tile.IsNotWalkable);
 
             return point;
