@@ -96,7 +96,7 @@ namespace Dungeons
         void CreateLevel(int fillRate)
         {
             level = new Tile[levelWidth, levelHeight];
-            Floor floor = new Floor(10, '.', ConsoleColor.Black);
+            Floor floor = new Floor(10, '.', ConsoleColor.DarkGray);
             Wall wall = new Wall(0, '#', ConsoleColor.Gray);
             Random r = new Random();
 
