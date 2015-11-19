@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blitter.cs" />
     <Compile Include="Blixel.cs" />
     <Compile Include="Enums\MoveInfo.cs" />
     <Compile Include="GameEntities\Tiles\Floor.cs" />
