@@ -13,6 +13,20 @@ namespace Dungeons
             Map = new Tile[width, height];
             Create(fillRate);
         }
+
+        public Level(int width, int height, int fillRate, int[] iterations)
+        {
+            Width = width;
+            Height = height;
+            Map = new Tile[width, height];
+            Create(fillRate);
+
+            foreach (int generation in iterations)
+            {
+                Iterate(generation);
+            }
+        }
+
         public Tile[,] Map { get; private set; }
         public int Width { get; private set; }
         public int Height { get; private set; }

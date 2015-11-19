@@ -28,9 +28,7 @@ namespace Dungeons
 
         public void Start()
         {
-            level = new Level(levelWidth, levelHeight, 55);
-            level.Iterate(6);
-            level.Iterate(4);
+            level = new Level(levelWidth, levelHeight, 55, new int[] { 6, 4 });
             CreatePlayer();
 
             // Hide cursor at game start
