@@ -131,8 +131,8 @@ namespace Dungeons
 
         public Point GetRandomPosition()
         {
-            int x = Randomizer.Number(Width);
-            int y = Randomizer.Number(Height);
+            int x = Randomizer.Next(Width);
+            int y = Randomizer.Next(Height);
 
             return new Point(x, y);
         }
