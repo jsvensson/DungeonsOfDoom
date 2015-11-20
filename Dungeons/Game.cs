@@ -246,7 +246,7 @@ namespace Dungeons
         {
             Console.Write("Enter your name: ");
             string name = Console.ReadLine();
-            int attack = Randomizer.Number(5, 10);
+            int attack = Randomizer.Between(5, 10);
 
             player = new Player(name, 25, attack);
             creatures.Add(player);
