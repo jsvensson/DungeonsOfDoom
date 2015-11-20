@@ -6,17 +6,13 @@ namespace Dungeons
     {
         public Level(int width, int height, int fillRate)
         {
-            Width = width;
-            Height = height;
-            Map = new Tile[width, height];
+            SetProperties(width, height);
             Create(fillRate);
         }
 
         public Level(int width, int height, int fillRate, int[] iterations)
         {
-            Width = width;
-            Height = height;
-            Map = new Tile[width, height];
+            SetProperties(width, height);
             Create(fillRate);
 
             foreach (int generation in iterations)
@@ -24,6 +20,13 @@ namespace Dungeons
                 Iterate(generation);
             }
             PostIterate();
+        }
+
+        private void SetProperties(int width, int height)
+        {
+            Width = width;
+            Height = height;
+            Map = new Tile[width, height];
         }
 
         public Tile[,] Map { get; private set; }
