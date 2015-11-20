@@ -4,8 +4,6 @@ namespace Dungeons
 {
     class Level
     {
-        Random random = new Random();
-
         public Level(int width, int height, int fillRate)
         {
             Width = width;
@@ -42,8 +40,7 @@ namespace Dungeons
             {
                 for (int x = 0; x < Width; x++)
                 {
-                    // TODO: Use static Random class
-                    if (random.Next(100) + 1 <= fillRate)
+                    if (Randomizer.Percentage(fillRate))
                     {
                         Map[x, y] = wall;
                     }
@@ -134,8 +131,8 @@ namespace Dungeons
 
         public Point GetRandomPosition()
         {
-            int x = random.Next(Width);
-            int y = random.Next(Height);
+            int x = Randomizer.Number(Width);
+            int y = Randomizer.Number(Height);
 
             return new Point(x, y);
         }

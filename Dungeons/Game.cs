@@ -10,7 +10,6 @@ namespace Dungeons
     {
         readonly int screenWidth, screenHeight;
         readonly int levelWidth, levelHeight;
-        readonly Random random = new Random();
         Level level;
         Player player;
         string lastStatus;
@@ -248,7 +247,7 @@ namespace Dungeons
         {
             Console.Write("Enter your name: ");
             string name = Console.ReadLine();
-            int attack = random.Next(5, 11);
+            int attack = Randomizer.Number(5, 10);
 
             player = new Player(name, 25, attack);
             creatures.Add(player);
