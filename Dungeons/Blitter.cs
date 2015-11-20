@@ -56,6 +56,5 @@ namespace Dungeons
         {
             DrawCharAtPos(position.X, position.Y, entity.Symbol, entity.Color);
         }
-
     }
 }

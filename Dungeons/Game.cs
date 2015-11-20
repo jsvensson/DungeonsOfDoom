@@ -149,9 +149,8 @@ namespace Dungeons
             // Move succeeded, add blit for tile we moved from
             else if (moveResult == MoveInfo.Success)
             {
-                // Blit old tile
+                // Blit old tile and new player position
                 Blitter.Add(new Blixel(oldPos, oldTile));
-                // Blit new player position
                 Blitter.Add(player.Position, player);
             }
             // Fight if we encountered a monster
