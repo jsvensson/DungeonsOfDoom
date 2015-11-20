@@ -25,6 +25,7 @@ namespace Dungeons
             {
                 Iterate(generation);
             }
+            PostIterate();
         }
 
         public Tile[,] Map { get; private set; }
@@ -121,6 +122,14 @@ namespace Dungeons
             }
 
             Map = nextMapGeneration;
+        }
+
+        void PostIterate()
+        {
+            // Add stairs to next level
+            Point stairPos = GetRandomPosition();
+            Map[stairPos.X, stairPos.Y] = null;
+            Map[stairPos.X, stairPos.Y] = new StairDown();
         }
 
         public Point GetRandomPosition()
