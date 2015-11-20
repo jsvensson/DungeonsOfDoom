@@ -102,7 +102,7 @@ namespace Dungeons
             {
                 case ConsoleKey.UpArrow:
                 case ConsoleKey.NumPad8:
-                    moveResult = player.TryToMove(Direction.North, level.Map, out playerBlixel);
+                    moveResult = player.TryToMove(Direction.North, level.Map);
                     if (moveResult == MoveInfo.Occupied)
                     {
                         occupiedTile = level.Map[player.Position.X, player.Position.Y - 1];
@@ -111,7 +111,7 @@ namespace Dungeons
                     break;
                 case ConsoleKey.DownArrow:
                 case ConsoleKey.NumPad2:
-                    moveResult = player.TryToMove(Direction.South, level.Map, out playerBlixel);
+                    moveResult = player.TryToMove(Direction.South, level.Map);
                     if (moveResult == MoveInfo.Occupied)
                     {
                         occupiedTile = level.Map[player.Position.X, player.Position.Y + 1];
@@ -120,7 +120,7 @@ namespace Dungeons
                     break;
                 case ConsoleKey.LeftArrow:
                 case ConsoleKey.NumPad4:
-                    moveResult = player.TryToMove(Direction.West, level.Map, out playerBlixel);
+                    moveResult = player.TryToMove(Direction.West, level.Map);
                     if (moveResult == MoveInfo.Occupied)
                     {
                         occupiedTile = level.Map[player.Position.X - 1, player.Position.Y];
@@ -129,7 +129,7 @@ namespace Dungeons
                     break;
                 case ConsoleKey.RightArrow:
                 case ConsoleKey.NumPad6:
-                    moveResult = player.TryToMove(Direction.East, level.Map, out playerBlixel);
+                    moveResult = player.TryToMove(Direction.East, level.Map);
                     if (moveResult == MoveInfo.Occupied)
                     {
                         occupiedTile = level.Map[player.Position.X + 1, player.Position.Y];
