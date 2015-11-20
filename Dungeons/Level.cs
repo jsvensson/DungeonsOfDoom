@@ -27,8 +27,8 @@ namespace Dungeons
         }
 
         public Tile[,] Map { get; private set; }
-        public int Width { get; private set; }
-        public int Height { get; private set; }
+        private int Width { get; set; }
+        private int Height { get; set; }
 
         public void Create(int fillRate)
         {
@@ -96,7 +96,7 @@ namespace Dungeons
             return CountWalls(position.X, position.Y);
         }
 
-        public void Iterate(int neighbors)
+        void Iterate(int neighbors)
         {
             Tile[,] nextMapGeneration = new Tile[Width, Height];
 
