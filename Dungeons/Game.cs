@@ -94,7 +94,6 @@ namespace Dungeons
             Tile oldTile = level.Map[player.Position.X, player.Position.Y];
             Point affectedTilePos = new Point();
             Point oldPos = player.Position;
-            Blixel playerBlixel;
             MoveInfo moveResult = MoveInfo.Success;
 
             switch (keyInfo.Key)
