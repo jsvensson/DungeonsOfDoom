@@ -40,11 +40,6 @@ namespace Dungeons
             Add(new Blixel(position, entity));
         }
 
-        static void Clear()
-        {
-            blixels.Clear();
-        }
-
         static void DrawCharAtPos(int x, int y, char character, ConsoleColor color)
         {
             Console.ForegroundColor = color;
