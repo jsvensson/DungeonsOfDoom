@@ -55,6 +55,7 @@
     <Compile Include="GameEntities\Item.cs" />
     <Compile Include="GameEntities\Creatures\Monster.cs" />
     <Compile Include="GameEntities\Creatures\Player.cs" />
+    <Compile Include="GameEntities\Tiles\StairDown.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Program.cs" />
@@ -62,6 +63,8 @@
     <Compile Include="GameEntities\Tile.cs" />
     <Compile Include="GameEntities\Creatures\Troll.cs" />
     <Compile Include="GameEntities\Tiles\Wall.cs" />
+    <Compile Include="Randomizer.cs" />
+    <Compile Include="StringUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
