@@ -8,11 +8,10 @@ namespace Dungeons
 {
     abstract class Tile : GameEntity
     {
-        public Tile(int brightness, char symbol, ConsoleColor color) :
+        public Tile(char symbol, ConsoleColor color) :
             base(symbol, color)
         {
             IsWalkable = true;
-            Brightness = brightness;
             Item = null;
         }
 
@@ -26,7 +25,6 @@ namespace Dungeons
             get { return Monster != null; }
         }
 
-        public int Brightness { get; set; }
         public Item Item { get; set; }
         public Monster Monster { get; set; }
         public virtual bool IsWalkable { get; set; }

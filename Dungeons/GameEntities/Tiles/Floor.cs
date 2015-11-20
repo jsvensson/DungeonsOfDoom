@@ -8,8 +8,8 @@ namespace Dungeons
 {
     class Floor : Tile
     {
-        public Floor(int brightness, char symbol, ConsoleColor color) :
-            base(brightness, symbol, color)
+        public Floor(char symbol, ConsoleColor color) :
+            base(symbol, color)
         {
         }
         public override bool IsWalkable

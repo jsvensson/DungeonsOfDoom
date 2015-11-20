@@ -34,7 +34,7 @@ namespace Dungeons
         public void Create(int fillRate)
         {
             Map = new Tile[Width, Height];
-            Floor floor = new Floor(10, '.', ConsoleColor.DarkGray);
+            Floor floor = new Floor('.', ConsoleColor.DarkGray);
             Wall wall = new Wall(0, '#', ConsoleColor.Gray);
 
             for (int y = 0; y < Height; y++)
@@ -102,7 +102,7 @@ namespace Dungeons
         {
             Tile[,] nextMapGeneration = new Tile[Width, Height];
 
-            Floor floor = new Floor(10, '.', ConsoleColor.DarkGray);
+            Floor floor = new Floor('.', ConsoleColor.DarkGray);
             Wall wall = new Wall(0, '#', ConsoleColor.Gray);
 
             for (int y = 0; y < Height; y++)

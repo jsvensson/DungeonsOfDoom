@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Dungeons
 {
-    class Wall : Tile
+    class StairDown : Floor
     {
-        public Wall(int brightness, char symbol, ConsoleColor color) :
-            base(symbol, color)
+        public StairDown() : base('<', ConsoleColor.White)
         {
-            IsWalkable = false;
         }
     }
 }
