@@ -11,7 +11,6 @@ namespace Dungeons
         readonly int screenWidth, screenHeight;
         readonly int levelWidth, levelHeight;
         readonly Random random = new Random();
-        static List<Blixel> blixels = new List<Blixel>();
         Level level;
         Player player;
         string lastStatus;
@@ -39,8 +38,7 @@ namespace Dungeons
             WriteStatus("You have entered a dark place. You are likely to be eaten by a grue.");
             do
             {
-                DrawGameBlits();
-                blixels.Clear();
+                Blitter.Draw();
                 AskForCommand();
                 CheckForItems();
             } while (player.Health > 0);
@@ -152,9 +150,9 @@ namespace Dungeons
             else if (moveResult == MoveInfo.Success)
             {
                 // Blit old tile
-                blixels.Add(new Blixel(oldPos, oldTile));
+                Blitter.Add(new Blixel(oldPos, oldTile));
                 // Blit new player position
-                blixels.Add(new Blixel(player.Position, player));
+                Blitter.Add(player.Position, player);
             }
             // Fight if we encountered a monster
             else if (occupiedTile?.Monster != null)
@@ -209,17 +207,6 @@ namespace Dungeons
                 WriteStatus("You grasp at air.");
         }
 
-        private void DrawGameBlits()
-        {
-            if (blixels.Count >= 1)
-            {
-                foreach (Blixel blixel in blixels)
-                {
-                    DrawCharAtPos(blixel.Position, blixel.Symbol, blixel.Color);
-                }
-            }
-        }
-
         private void DrawFullGame()
         {
             Console.Clear();
@@ -239,40 +226,23 @@ namespace Dungeons
                     if(tile.HasItems && !tile.HasMonster)
                     {
                         // Has item, no monster - draw item
-                        DrawCharAtPos(pos, tile.Item);
+                        Blitter.Add(pos, tile.Item);
                     }
                     else if(tile.HasMonster && !tile.HasItems)
                     {
                         // Has monster, no item - draw monster
-                        DrawCharAtPos(pos, tile.Monster);
+                        Blitter.Add(pos, tile.Monster);
                     }
                     else
                     {
                         // Just draw the floor tile
-                        DrawCharAtPos(pos, tile);
+                        Blitter.Add(pos, tile);
                     }
                 }
             }
 
             // Draw player last
-            DrawCharAtPos(player.Position, player);
-        }
-
-        private void DrawCharAtPos(int x, int y, char character, ConsoleColor color)
-        {
-            Console.ForegroundColor = color;
-            Console.SetCursorPosition(x, y);
-            Console.Write(character);
-        }
-
-        private void DrawCharAtPos(Point position, char character, ConsoleColor color)
-        {
-            DrawCharAtPos(position.X, position.Y, character, color);
-        }
-
-        private void DrawCharAtPos(Point position, GameEntity entity)
-        {
-            DrawCharAtPos(position.X, position.Y, entity.Symbol, entity.Color);
+            Blitter.Add(player.Position, player);
         }
 
         private void CreatePlayer()
