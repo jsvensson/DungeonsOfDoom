@@ -67,7 +67,7 @@ namespace Dungeons
             }
         }
 
-        int CountWalls(int x, int y)
+        int CountWalls(int mapX, int mapY)
         {
             int count = 0;
 
@@ -75,16 +75,16 @@ namespace Dungeons
             {
                 for (int col = -1; col <= 1; col++)
                 {
-                    int posX = col + x;
-                    int posY = row + y;
+                    int relativeX = col + mapX;
+                    int relativeY = row + mapY;
                     // Check level boundaries
-                    if (posX < 0 || posX >= Width ||
-                        posY < 0 || posY >= Height)
+                    if (relativeX < 0 || relativeX >= Width ||
+                        relativeY < 0 || relativeY >= Height)
                     {
                         // Outside boundary, counts as a wall
                         count++;
                     }
-                    else if (Map[posX, posY] is Wall)
+                    else if (Map[relativeX, relativeY] is Wall)
                     {
                         // Within boundaries, check if wall
                         count++;
