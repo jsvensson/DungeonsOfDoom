@@ -220,15 +220,15 @@ namespace Dungeons
                 {
                     Point pos = new Point(x, y);
                     Tile tile = level.Map[x, y];
-                    if(tile.HasItems && !tile.HasMonster)
+                    if(tile.HasMonster)
+                    {
+                        // Has monster - draw monster
+                        Blitter.Add(pos, tile.Monster);
+                    }
+                    else if(tile.HasItems && !tile.HasMonster)
                     {
                         // Has item, no monster - draw item
                         Blitter.Add(pos, tile.Item);
-                    }
-                    else if(tile.HasMonster && !tile.HasItems)
-                    {
-                        // Has monster, no item - draw monster
-                        Blitter.Add(pos, tile.Monster);
                     }
                     else
                     {
