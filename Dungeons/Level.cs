@@ -127,7 +127,7 @@ namespace Dungeons
         void PostIterate()
         {
             // Add stairs to next level
-            Point stairPos = GetRandomPosition();
+            Point stairPos = GetRandomEmptyPosition();
             Map[stairPos.X, stairPos.Y] = null;
             Map[stairPos.X, stairPos.Y] = new StairDown();
         }
