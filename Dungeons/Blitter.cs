@@ -9,12 +9,9 @@ namespace Dungeons
 
         public static void Draw()
         {
-            if (blixels.Count >= 1)
+            foreach (Blixel blixel in blixels)
             {
-                foreach (Blixel blixel in blixels)
-                {
-                    DrawCharAtPos(blixel.Position, blixel.Symbol, blixel.Color);
-                }
+                DrawCharAtPos(blixel.Position, blixel.Symbol, blixel.Color);
             }
             blixels.Clear();
         }
