@@ -8,9 +8,13 @@ namespace Dungeons
 {
     class Player : Creature
     {
-        public Player(string name, int health, int attackValue):
-            base(name, health, attackValue, '@', ConsoleColor.Yellow)
+        public Player(string name, int health):
+            base(name, health, 8, '@', ConsoleColor.Yellow)
         {
+            if (name.Length <= 2)
+            {
+                throw new ArgumentException("Parameter 'name' too short");
+            }
         }
 
         public List<Item> Inventory { get; set; } = new List<Item>();

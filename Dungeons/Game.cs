@@ -244,12 +244,24 @@ namespace Dungeons
 
         private void CreatePlayer()
         {
-            Console.Write("Enter your name: ");
-            string name = Console.ReadLine();
-            int attack = Randomizer.Between(5, 10);
+            string name = String.Empty;
+            bool validName;
 
-            player = new Player(name, 25, attack);
-            creatures.Add(player);
+            do
+            {
+                Console.Write("State thy name: ");
+                name = Console.ReadLine();
+                validName = name.Length <= 2;
+                if (!validName)
+                {
+                    Console.WriteLine("Thy name art too short, mortal!");
+                }
+                else
+                {
+                    player = new Player(name, 25);
+                    creatures.Add(player);
+                }
+            } while (!validName);
         }
 
         private void WriteStatus(string message)
