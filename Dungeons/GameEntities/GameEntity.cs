@@ -10,7 +10,7 @@ namespace Dungeons
             Color = color;
         }
 
-        public char Symbol { get; set; }
+        public virtual char Symbol { get; set; }
         public ConsoleColor Color { get; set; }
     }
 }
