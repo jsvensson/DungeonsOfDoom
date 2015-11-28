@@ -15,14 +15,14 @@ namespace Dungeons
                 throw new ArgumentException("parameter 'name' too short");
         }
 
-        public List<Item> Inventory { get; set; } = new List<Item>();
+        public List<ILootable> Inventory { get; set; } = new List<ILootable>();
 
         public int Encumbrance
         {
             get
             {
                 int weight = 0;
-                foreach (Item item in Inventory)
+                foreach (ILootable item in Inventory)
                 {
                     weight += item.Weight;
                 }

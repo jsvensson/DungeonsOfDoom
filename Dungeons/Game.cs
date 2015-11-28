@@ -177,9 +177,10 @@ namespace Dungeons
                 {
                     // Monster is dead
                     statusQueue.Add($"{monster.Name} falls over dead!");
+                    monster.Kill();
 
                     // Add corpse to backpack
-                    monster.Name = $"A dead {monster.Name}";
+                    player.Inventory.Add(monster);
 
                     // Remove from creature list
                     // TODO: remove creature list from game
@@ -190,14 +191,14 @@ namespace Dungeons
                         occupiedTile.Monster = null;
                     }
 
-                    // TODO: Blit floor on the tile
-                    //blixels.Add(new Blixel(affectedTilePos, occupiedTile.Symbol, occupiedTile.Color));
+                    // Blit floor on the tile
+                    Blitter.Add(new Blixel(affectedTilePos, occupiedTile));
                 }
 
                 // Check player state
                 if (player.Health <= 0 && monster != null)
                 {
-                    WriteStatus($"You have been slain by a {monster.Name}... Rest in pieces.");
+                    statusQueue.Add($"You have been slain by a {monster.Name}... Rest in pieces.");
                     Console.ReadKey();
                 }
             }
@@ -222,9 +223,6 @@ namespace Dungeons
             Console.Clear();
             Console.ResetColor();
             
-            WriteStatus(lastStatus);
-            lastStatus = "";
-
             // Loop through all tiles and draw items
             for (int x = 0; x < levelWidth; x++)
             {
