@@ -36,6 +36,7 @@ namespace Dungeons
                 Blitter.Draw();
                 AskForCommand();
                 CheckForItems();
+                UpdateWindowTitle();
             } while (player.Health > 0);
         }
 
@@ -215,8 +216,7 @@ namespace Dungeons
         {
             Console.Clear();
             Console.ResetColor();
-            // TODO: Move title update to separate method
-            Console.Title = $"Health: {player.Health} Inventory: {player.Inventory.Count} Weight: {player.Encumbrance} Position: [{player.Position.X},{player.Position.Y}]";
+            
             WriteStatus(lastStatus);
             lastStatus = "";
 
@@ -276,6 +276,11 @@ namespace Dungeons
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Write(message);
             lastStatus = message;
+        }
+
+        void UpdateWindowTitle()
+        {
+            Console.Title = $"Health: {player.Health} Inventory: {player.Inventory.Count} Weight: {player.Encumbrance} Position: [{player.Position.X},{player.Position.Y}]";
         }
     }
 }
