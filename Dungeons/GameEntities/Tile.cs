@@ -5,6 +5,8 @@ namespace Dungeons
     abstract class Tile : GameEntity
     {
         private char symbol;
+        private ConsoleColor color;
+
         public Tile(char symbol, ConsoleColor color) :
             base(symbol, color)
         {
@@ -23,12 +25,14 @@ namespace Dungeons
         }
         public override char Symbol
         {
-            get
-            {
-                // Return correct symbol for the tile
-                return GetMapSymbol();
-            }
+            get { return GetTileSymbol(); }
             set { symbol = value; }
+
+        }
+        public override ConsoleColor Color
+        {
+            get { return GetTileColor(); }
+            set { color = value; }
 
         }
 
@@ -40,12 +44,20 @@ namespace Dungeons
             get { return !IsWalkable; }
         }
 
-        private char GetMapSymbol()
+        private char GetTileSymbol()
         {
             if (HasItems)
                 return Item.Symbol;
             else
                 return symbol;
+        }
+
+        private ConsoleColor GetTileColor()
+        {
+            if (HasItems)
+                return Item.Color;
+            else
+                return color;
         }
     }
 }
