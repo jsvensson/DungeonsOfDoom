@@ -26,11 +26,7 @@ namespace Dungeons
 
         public void Start()
         {
-            level = new Level(levelWidth, levelHeight, 55, new int[] { 6, 4 });
-            CreatePlayer();
-
-            // Hide cursor at game start
-            Console.CursorVisible = false;
+            GameSetup();
 
             player.Position = level.GetRandomEmptyPosition();
             DrawFullGame();
@@ -41,6 +37,16 @@ namespace Dungeons
                 AskForCommand();
                 CheckForItems();
             } while (player.Health > 0);
+        }
+
+        void GameSetup()
+        {
+            // Hide cursor at game start
+            Console.CursorVisible = false;
+
+            level = new Level(levelWidth, levelHeight, 55, new int[] { 6, 4 });
+            CreatePlayer();
+            CreateMonsters();
         }
 
         private bool CheckForItems()
