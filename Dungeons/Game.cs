@@ -251,8 +251,19 @@ namespace Dungeons
 
         private void CreatePlayer()
         {
-            Console.Write("Enter your name: ");
-            string name = Console.ReadLine();
+            string name;
+            bool validName;
+            do
+            {
+                Console.Write("Enter your name: ");
+                name = Console.ReadLine();
+                validName = name.Length >= 3;
+                if (!validName)
+                {
+                    Console.WriteLine("Name too short! Minimum of 3 characters.");
+                }
+            } while (!validName);
+
             int attack = Randomizer.Between(5, 10);
 
             player = new Player(name, 25, attack);
