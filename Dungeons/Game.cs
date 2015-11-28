@@ -47,6 +47,7 @@ namespace Dungeons
             level = new Level(levelWidth, levelHeight, 55, new int[] { 6, 4 });
             CreatePlayer();
             CreateMonsters();
+            CreateItems();
         }
 
         private bool CheckForItems()
