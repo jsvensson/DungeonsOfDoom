@@ -64,6 +64,7 @@
     <Compile Include="GameEntities\Creatures\Troll.cs" />
     <Compile Include="GameEntities\Tiles\Wall.cs" />
     <Compile Include="Randomizer.cs" />
+    <Compile Include="StatusQueue.cs" />
     <Compile Include="StringUtils.cs" />
   </ItemGroup>
   <ItemGroup>
