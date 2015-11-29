@@ -26,13 +26,13 @@ namespace Dungeons
         public override char Symbol
         {
             get { return GetTileSymbol(); }
-            set { symbol = value; }
+            protected set { symbol = value; }
 
         }
         public override ConsoleColor Color
         {
             get { return GetTileColor(); }
-            set { color = value; }
+            protected set { color = value; }
 
         }
 
