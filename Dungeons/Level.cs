@@ -36,8 +36,6 @@ namespace Dungeons
         public void Create(int fillRate)
         {
             Map = new Tile[Width, Height];
-            Floor floor = new Floor('.', ConsoleColor.DarkGray);
-            Wall wall = new Wall(0, '#', ConsoleColor.Gray);
 
             for (int y = 0; y < Height; y++)
             {
@@ -45,11 +43,11 @@ namespace Dungeons
                 {
                     if (Randomizer.Percentage(fillRate))
                     {
-                        Map[x, y] = wall;
+                        Map[x, y] = new Wall(0, '#', ConsoleColor.Gray);
                     }
                     else
                     {
-                        Map[x, y] = floor;
+                        Map[x, y] = new Floor('.', ConsoleColor.DarkGray);
                     }
                 }
             }
@@ -57,13 +55,13 @@ namespace Dungeons
             // Create edge walls
             for (int row = 0; row < Height; row++)
             {
-                Map[0, row] = wall;
-                Map[Width - 1, row] = wall;
+                Map[0, row] = new Wall(0, '#', ConsoleColor.Gray);
+                Map[Width - 1, row] = new Wall(0, '#', ConsoleColor.Gray);
             }
             for (int col = 0; col < Width; col++)
             {
-                Map[col, 0] = wall;
-                Map[col, Height - 1] = wall;
+                Map[col, 0] = new Wall(0, '#', ConsoleColor.Gray);
+                Map[col, Height - 1] = new Wall(0, '#', ConsoleColor.Gray);
             }
         }
 
@@ -103,20 +101,17 @@ namespace Dungeons
         {
             Tile[,] nextMapGeneration = new Tile[Width, Height];
 
-            Floor floor = new Floor('.', ConsoleColor.DarkGray);
-            Wall wall = new Wall(0, '#', ConsoleColor.Gray);
-
             for (int y = 0; y < Height; y++)
             {
                 for (int x = 0; x < Width; x++)
                 {
                     if (CountWalls(x, y) >= neighbors)
                     {
-                        nextMapGeneration[x, y] = wall;
+                        nextMapGeneration[x, y] = new Wall(0, '#', ConsoleColor.Gray);
                     }
                     else
                     {
-                        nextMapGeneration[x, y] = floor;
+                        nextMapGeneration[x, y] = new Floor('.', ConsoleColor.DarkGray);
                     }
                 }
             }

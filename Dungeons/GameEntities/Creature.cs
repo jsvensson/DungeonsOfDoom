@@ -2,7 +2,7 @@
 
 namespace Dungeons
 {
-    abstract class Creature : GameEntity
+    abstract class Creature : GameEntity, ILootable
     {
         public Creature(string name, int health, int attackValue, char symbol, ConsoleColor color):
             base(symbol, color)
@@ -16,6 +16,12 @@ namespace Dungeons
         {
             opponent.Health -= AttackValue;
             return opponent.Health;
+        }
+
+        public void Kill()
+        {
+            Symbol = '%';
+            Name = $"A dead {Name}";
         }
 
         public MoveInfo TryToMove(Direction direction, Tile[,] level)
@@ -79,7 +85,8 @@ namespace Dungeons
             }
         }
 
-        public string Name { get; private set; }
+        public string Name { get; set; }
+        public int Weight { get; set; }
         public int Health { get; set; }
         public int AttackValue { get; set; }
         public Point Position { get; set; }

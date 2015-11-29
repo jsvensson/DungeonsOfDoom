@@ -12,8 +12,8 @@ namespace Dungeons
         readonly int levelWidth, levelHeight;
         Level level;
         Player player;
-        string lastStatus;
         List<Creature> creatures;
+        StatusQueue statusQueue;
 
         public Game(int width, int height)
         {
@@ -22,25 +22,35 @@ namespace Dungeons
             levelWidth = width;
             levelHeight = height - 1;
             creatures = new List<Creature>();
+            statusQueue = new StatusQueue(height - 1, width - 1);
         }
 
         public void Start()
         {
-            level = new Level(levelWidth, levelHeight, 55, new int[] { 6, 4 });
-            CreatePlayer();
-
-            // Hide cursor at game start
-            Console.CursorVisible = false;
+            GameSetup();
 
             player.Position = level.GetRandomEmptyPosition();
             DrawFullGame();
-            WriteStatus("You have entered a dark place. You are likely to be eaten by a grue.");
+            statusQueue.Add("You have entered a dark place. You are likely to be eaten by a grue.");
             do
             {
                 Blitter.Draw();
+                UpdateWindowTitle();
+                statusQueue.Write();
                 AskForCommand();
                 CheckForItems();
             } while (player.Health > 0);
+        }
+
+        void GameSetup()
+        {
+            // Hide cursor at game start
+            Console.CursorVisible = false;
+
+            level = new Level(levelWidth, levelHeight, 55, new int[] { 6, 4 });
+            CreatePlayer();
+            CreateMonsters();
+            CreateItems();
         }
 
         private bool CheckForItems()
@@ -49,7 +59,7 @@ namespace Dungeons
             if (tile.HasItems)
             {
                 Item item = tile.Item;
-                WriteStatus($"A {item.Name} lies here.");
+                statusQueue.Add($"A {item.Name} lies here.");
                 return true;
             }
             else
@@ -142,7 +152,7 @@ namespace Dungeons
             // Bonk if we walk into a wall
             if (moveResult == MoveInfo.BlockedByWall)
             {
-                WriteStatus("Bonk!");
+                statusQueue.Add("Bonk!");
             }
             // Move succeeded, add blit for tile we moved from
             else if (moveResult == MoveInfo.Success)
@@ -158,7 +168,7 @@ namespace Dungeons
                 int healthLeft = player.Fight(monster);
                 if (healthLeft >= 1)
                 {
-                    WriteStatus($"Attacked {monster.Name} for {player.AttackValue} damage! It has {monster.Health} hp left.");
+                    statusQueue.Add($"Attacked {monster.Name} for {player.AttackValue} damage! It has {monster.Health} hp left.");
 
                     // Monster fights back
                     monster.Fight(player);
@@ -166,7 +176,11 @@ namespace Dungeons
                 else
                 {
                     // Monster is dead
-                    WriteStatus($"{monster.Name} falls over dead!");
+                    statusQueue.Add($"{monster.Name} falls over dead!");
+                    monster.Kill();
+
+                    // Add corpse to backpack
+                    player.Inventory.Add(monster);
 
                     // Remove from creature list
                     // TODO: remove creature list from game
@@ -177,14 +191,14 @@ namespace Dungeons
                         occupiedTile.Monster = null;
                     }
 
-                    // TODO: Blit floor on the tile
-                    //blixels.Add(new Blixel(affectedTilePos, occupiedTile.Symbol, occupiedTile.Color));
+                    // Blit floor on the tile
+                    Blitter.Add(new Blixel(affectedTilePos, occupiedTile));
                 }
 
                 // Check player state
                 if (player.Health <= 0 && monster != null)
                 {
-                    WriteStatus($"You have been slain by a {monster.Name}... Rest in pieces.");
+                    statusQueue.Add($"You have been slain by a {monster.Name}... Rest in pieces.");
                     Console.ReadKey();
                 }
             }
@@ -198,21 +212,17 @@ namespace Dungeons
                 Item item = tile.Item;
                 player.Inventory.Add(item);
                 tile.Item = null;
-                WriteStatus($"You pick up a {item.Name}.");
+                statusQueue.Add($"You pick up a {item.Name}.");
             }
             else
-                WriteStatus("You grasp at air.");
+                statusQueue.Add("You grasp at air.");
         }
 
         private void DrawFullGame()
         {
             Console.Clear();
             Console.ResetColor();
-            // TODO: Move title update to separate method
-            Console.Title = $"Health: {player.Health} Inventory: {player.Inventory.Count} Weight: {player.Encumbrance} Position: [{player.Position.X},{player.Position.Y}]";
-            WriteStatus(lastStatus);
-            lastStatus = "";
-
+            
             // Loop through all tiles and draw items
             for (int x = 0; x < levelWidth; x++)
             {
@@ -244,32 +254,28 @@ namespace Dungeons
 
         private void CreatePlayer()
         {
-            string name = String.Empty;
+            string name;
             bool validName;
-
             do
             {
-                Console.Write("State thy name: ");
+                Console.Write("Enter your name: ");
                 name = Console.ReadLine();
-                validName = name.Length <= 2;
+                validName = name.Length >= 3;
                 if (!validName)
                 {
-                    Console.WriteLine("Thy name art too short, mortal!");
-                }
-                else
-                {
-                    player = new Player(name, 25);
-                    creatures.Add(player);
+                    Console.WriteLine("Name too short! Minimum of 3 characters.");
                 }
             } while (!validName);
+
+            int attack = Randomizer.Between(5, 10);
+
+            player = new Player(name, 25, attack);
+            creatures.Add(player);
         }
 
-        private void WriteStatus(string message)
+        void UpdateWindowTitle()
         {
-            Console.SetCursorPosition(0, levelHeight);
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write(message);
-            lastStatus = message;
+            Console.Title = $"Health: {player.Health} Inventory: {player.Inventory.Count} Weight: {player.Encumbrance} Position: [{player.Position.X},{player.Position.Y}]";
         }
     }
 }

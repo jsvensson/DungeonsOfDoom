@@ -2,7 +2,7 @@
 
 namespace Dungeons
 {
-    class Item : GameEntity
+    class Item : GameEntity, ILootable
     {
         public Item(string name, int weight, char symbol, ConsoleColor color):
             base(symbol, color)
@@ -11,7 +11,7 @@ namespace Dungeons
             Weight = weight;
         }
 
-        public string Name { get; private set; }
-        public int Weight { get; private set; }
+        public string Name { get; set; }
+        public int Weight { get; set; }
     }
 }
