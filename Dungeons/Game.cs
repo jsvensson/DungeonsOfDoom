@@ -260,7 +260,7 @@ namespace Dungeons
             {
                 Console.Write("Enter your name: ");
                 name = Console.ReadLine();
-                validName = name.Length >= 3;
+                validName = Player.ValidateName(name);
                 if (!validName)
                 {
                     Console.WriteLine("Name too short! Minimum of 3 characters.");
