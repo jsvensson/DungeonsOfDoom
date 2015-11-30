@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dungeons.Core
 {
-    class StatusQueue
+    class StatusQueue: IStatusQueue
     {
         const string interstitial = "--more--";
         static List<string> queue = new List<string>();
@@ -25,7 +25,7 @@ namespace Dungeons.Core
             queue.Add(message);
         }
 
-        public void Write()
+        public void Show()
         {
             Console.SetCursorPosition(0, row);
             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -47,18 +47,18 @@ namespace Dungeons.Core
                 }
                 Console.CursorVisible = false;
             }
-            else if (queue.Count == 1)
+            else switch (queue.Count)
             {
-                Console.Write(PadMessage(queue.First()));
-                clearStatus = true;
-                queue.Clear();
+                case 1:
+                    Console.Write(PadMessage(queue.First()));
+                    clearStatus = true;
+                    queue.Clear();
+                    break;
+                case 0:
+                    if (clearStatus)
+                        ClearStatus();
+                    break;
             }
-            else if (queue.Count == 0)
-            {
-                if (clearStatus)
-                    ClearStatus();
-            }
-
         }
 
         private string PadMessage(string value)

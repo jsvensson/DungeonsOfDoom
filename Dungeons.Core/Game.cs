@@ -31,7 +31,7 @@ namespace Dungeons.Core
             {
                 Blitter.Draw();
                 UpdateWindowTitle();
-                statusQueue.Write();
+                statusQueue.Show();
                 AskForCommand();
                 CheckForItems();
             } while (player.Health > 0);

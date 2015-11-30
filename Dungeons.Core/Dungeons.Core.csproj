@@ -57,6 +57,7 @@
     <Compile Include="GameEntities\Tiles\StairDown.cs" />
     <Compile Include="GameEntities\Tiles\Wall.cs" />
     <Compile Include="Interfaces\ILootable.cs" />
+    <Compile Include="Interfaces\IStatusQueue.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatusQueue.cs" />
