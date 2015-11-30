@@ -2,9 +2,9 @@
 
 namespace Dungeons.Core
 {
-    public abstract class GameEntity
+    abstract class GameEntity
     {
-        public GameEntity(char symbol, ConsoleColor color)
+        protected GameEntity(char symbol, ConsoleColor color)
         {
             Symbol = symbol;
             Color = color;
