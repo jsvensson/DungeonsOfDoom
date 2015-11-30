@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dungeons
+namespace Dungeons.Core
 {
     class Wall : Tile
     {

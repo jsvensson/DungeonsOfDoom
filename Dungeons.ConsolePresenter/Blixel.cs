@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Dungeons.Core;
+using System;
 
-namespace Dungeons
+namespace Dungeons.ConsolePresenter
 {
-    class Blixel
+    public class Blixel
     {
         public Blixel(Point position, char symbol, ConsoleColor color)
         {

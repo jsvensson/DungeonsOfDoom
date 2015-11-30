@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Dungeons.Core;
+using System;
 using System.Collections.Generic;
 
-namespace Dungeons
+namespace Dungeons.ConsolePresenter
 {
-    static class Blitter
+    public static class Blitter
     {
         static List<Blixel> blixels = new List<Blixel>();
 

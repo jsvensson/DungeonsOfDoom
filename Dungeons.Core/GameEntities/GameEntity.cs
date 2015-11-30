@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Dungeons
+namespace Dungeons.Core
 {
-    abstract class GameEntity
+    public abstract class GameEntity
     {
         public GameEntity(char symbol, ConsoleColor color)
         {

@@ -1,7 +1,7 @@
 ﻿using Dungeons.Utils;
 using System;
 
-namespace Dungeons
+namespace Dungeons.Core
 {
     class Level
     {

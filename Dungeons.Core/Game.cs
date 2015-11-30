@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dungeons
+namespace Dungeons.Core
 {
-    class Game
+    public class Game
     {
         readonly int screenWidth, screenHeight;
         readonly int levelWidth, levelHeight;
