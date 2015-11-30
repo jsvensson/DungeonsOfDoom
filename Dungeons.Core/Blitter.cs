@@ -34,19 +34,19 @@ namespace Dungeons.Core
             Add(new Blixel(position, entity));
         }
 
-        static void DrawCharAtPos(int x, int y, char character, ConsoleColor color)
+        private static void DrawCharAtPos(int x, int y, char character, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.SetCursorPosition(x, y);
             Console.Write(character);
         }
 
-        static void DrawCharAtPos(Point position, char character, ConsoleColor color)
+        private static void DrawCharAtPos(Point position, char character, ConsoleColor color)
         {
             DrawCharAtPos(position.X, position.Y, character, color);
         }
 
-        static void DrawCharAtPos(Point position, GameEntity entity)
+        private static void DrawCharAtPos(Point position, GameEntity entity)
         {
             DrawCharAtPos(position.X, position.Y, entity.Symbol, entity.Color);
         }

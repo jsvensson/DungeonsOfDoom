@@ -61,13 +61,13 @@ namespace Dungeons
 
         }
 
-        string PadMessage(string value)
+        private string PadMessage(string value)
         {
             string padding = new string(' ', width - value.Length);
             return value + padding;
         }
 
-        void ClearStatus()
+        private void ClearStatus()
         {
             string row = new string(' ', width - 1);
             Console.Write(row);

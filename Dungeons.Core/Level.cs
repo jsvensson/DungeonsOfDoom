@@ -93,7 +93,7 @@ namespace Dungeons.Core
             return count;
         }
 
-        void Iterate(int neighbors)
+        private void Iterate(int neighbors)
         {
             Tile[,] nextMapGeneration = new Tile[Width, Height];
 
