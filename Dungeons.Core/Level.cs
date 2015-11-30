@@ -93,12 +93,7 @@ namespace Dungeons.Core
             return count;
         }
 
-        int CountWalls(Point position)
-        {
-            return CountWalls(position.X, position.Y);
-        }
-
-        void Iterate(int neighbors)
+        private void Iterate(int neighbors)
         {
             Tile[,] nextMapGeneration = new Tile[Width, Height];
 

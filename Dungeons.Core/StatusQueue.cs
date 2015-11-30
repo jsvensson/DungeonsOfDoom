@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dungeons
+namespace Dungeons.Core
 {
     class StatusQueue
     {
@@ -61,13 +61,13 @@ namespace Dungeons
 
         }
 
-        string PadMessage(string value)
+        private string PadMessage(string value)
         {
             string padding = new string(' ', width - value.Length);
             return value + padding;
         }
 
-        void ClearStatus()
+        private void ClearStatus()
         {
             string row = new string(' ', width - 1);
             Console.Write(row);

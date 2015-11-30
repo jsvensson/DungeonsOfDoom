@@ -1,15 +1,11 @@
 ﻿using Dungeons.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dungeons.Core
 {
     public class Game
     {
-        readonly int screenWidth, screenHeight;
         readonly int levelWidth, levelHeight;
         Level level;
         Player player;
@@ -18,8 +14,6 @@ namespace Dungeons.Core
 
         public Game(int width, int height)
         {
-            screenWidth = width;
-            screenHeight = height;
             levelWidth = width;
             levelHeight = height - 1;
             creatures = new List<Creature>();
@@ -43,7 +37,7 @@ namespace Dungeons.Core
             } while (player.Health > 0);
         }
 
-        void GameSetup()
+        private void GameSetup()
         {
             // Hide cursor at game start
             Console.CursorVisible = false;
@@ -67,7 +61,7 @@ namespace Dungeons.Core
                 return false;
         }
 
-        void CreateItems()
+        private void CreateItems()
         {
             for (int i = 0; i < 10; i++)
             {
@@ -77,7 +71,7 @@ namespace Dungeons.Core
             }
         }
 
-        void CreateMonsters()
+        private void CreateMonsters()
         {
             for (int i = 0; i < 10; i++)
             {
@@ -98,7 +92,7 @@ namespace Dungeons.Core
             }
         }
 
-        void AskForCommand()
+        private void AskForCommand()
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             Tile occupiedTile = null;
@@ -274,7 +268,7 @@ namespace Dungeons.Core
             creatures.Add(player);
         }
 
-        void UpdateWindowTitle()
+        private void UpdateWindowTitle()
         {
             Console.Title = $"Health: {player.Health} Inventory: {player.Inventory.Count} Weight: {player.Encumbrance} Position: [{player.Position.X},{player.Position.Y}]";
         }
