@@ -37,7 +37,7 @@ namespace Dungeons.Core
             } while (player.Health > 0);
         }
 
-        void GameSetup()
+        private void GameSetup()
         {
             // Hide cursor at game start
             Console.CursorVisible = false;
@@ -61,7 +61,7 @@ namespace Dungeons.Core
                 return false;
         }
 
-        void CreateItems()
+        private void CreateItems()
         {
             for (int i = 0; i < 10; i++)
             {
@@ -71,7 +71,7 @@ namespace Dungeons.Core
             }
         }
 
-        void CreateMonsters()
+        private void CreateMonsters()
         {
             for (int i = 0; i < 10; i++)
             {
@@ -92,7 +92,7 @@ namespace Dungeons.Core
             }
         }
 
-        void AskForCommand()
+        private void AskForCommand()
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
             Tile occupiedTile = null;
@@ -268,7 +268,7 @@ namespace Dungeons.Core
             creatures.Add(player);
         }
 
-        void UpdateWindowTitle()
+        private void UpdateWindowTitle()
         {
             Console.Title = $"Health: {player.Health} Inventory: {player.Inventory.Count} Weight: {player.Encumbrance} Position: [{player.Position.X},{player.Position.Y}]";
         }
