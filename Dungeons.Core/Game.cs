@@ -1,15 +1,11 @@
 ﻿using Dungeons.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dungeons.Core
 {
     public class Game
     {
-        readonly int screenWidth, screenHeight;
         readonly int levelWidth, levelHeight;
         Level level;
         Player player;
@@ -18,8 +14,6 @@ namespace Dungeons.Core
 
         public Game(int width, int height)
         {
-            screenWidth = width;
-            screenHeight = height;
             levelWidth = width;
             levelHeight = height - 1;
             creatures = new List<Creature>();
