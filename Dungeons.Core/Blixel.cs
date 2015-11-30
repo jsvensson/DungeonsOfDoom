@@ -18,8 +18,8 @@ namespace Dungeons.Core
             Color = entity.Color;
         }
 
-        public char Symbol { get; set; }
-        public ConsoleColor Color { get; set; }
-        public Point Position { get; set; }
+        public char Symbol { get; }
+        public ConsoleColor Color { get; }
+        public Point Position { get; }
     }
 }
