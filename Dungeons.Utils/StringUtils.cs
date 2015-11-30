@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Dungeons
+namespace Dungeons.Utils
 {
-    static class StringUtils
+    public static class StringUtils
     {
         static public void WriteCenteredLine(string value)
         {

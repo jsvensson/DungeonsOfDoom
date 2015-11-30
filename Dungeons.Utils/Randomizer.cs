@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Dungeons
+namespace Dungeons.Utils
 {
-    static class Randomizer
+    public static class Randomizer
     {
         static Random random = new Random();
 
