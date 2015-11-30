@@ -1,6 +1,6 @@
 ﻿namespace Dungeons
 {
-    struct Point
+    public struct Point
     {
         public Point(int x, int y)
         {
