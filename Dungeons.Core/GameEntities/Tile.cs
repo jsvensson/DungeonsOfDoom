@@ -39,25 +39,16 @@ namespace Dungeons.Core
         public Item Item { get; set; }
         public Monster Monster { get; set; }
         public virtual bool IsWalkable { get; set; }
-        public bool IsNotWalkable
-        {
-            get { return !IsWalkable; }
-        }
+        public bool IsNotWalkable => !IsWalkable;
 
         private char GetTileSymbol()
         {
-            if (HasItems)
-                return Item.Symbol;
-            else
-                return symbol;
+            return HasItems ? Item.Symbol : symbol;
         }
 
         private ConsoleColor GetTileColor()
         {
-            if (HasItems)
-                return Item.Color;
-            else
-                return color;
+            return HasItems ? Item.Color : color;
         }
     }
 }
