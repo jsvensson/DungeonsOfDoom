@@ -49,17 +49,17 @@
     <Compile Include="Enums\Direction.cs" />
     <Compile Include="Enums\MoveInfo.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="GameEntities\Creature.cs" />
-    <Compile Include="GameEntities\Creatures\Goblin.cs" />
-    <Compile Include="GameEntities\Creatures\Monster.cs" />
-    <Compile Include="GameEntities\Creatures\Player.cs" />
-    <Compile Include="GameEntities\Creatures\Troll.cs" />
+    <Compile Include="GameEntity\Creature.cs" />
+    <Compile Include="GameEntity\Creature\Goblin.cs" />
+    <Compile Include="GameEntity\Creature\Monster.cs" />
+    <Compile Include="GameEntity\Creature\Player.cs" />
+    <Compile Include="GameEntity\Creature\Troll.cs" />
     <Compile Include="GameEntity.cs" />
-    <Compile Include="GameEntities\Item.cs" />
-    <Compile Include="GameEntities\Tile.cs" />
-    <Compile Include="GameEntities\Tiles\Floor.cs" />
-    <Compile Include="GameEntities\Tiles\StairDown.cs" />
-    <Compile Include="GameEntities\Tiles\Wall.cs" />
+    <Compile Include="GameEntity\Item.cs" />
+    <Compile Include="GameEntity\Tile.cs" />
+    <Compile Include="GameEntity\Tile\Floor.cs" />
+    <Compile Include="GameEntity\Tile\StairDown.cs" />
+    <Compile Include="GameEntity\Tile\Wall.cs" />
     <Compile Include="Interfaces\ILootable.cs" />
     <Compile Include="Interfaces\IStatusQueue.cs" />
     <Compile Include="Level.cs" />
@@ -67,7 +67,7 @@
     <Compile Include="StatusQueue.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GameEntities\Items\" />
+    <Folder Include="GameEntity\Item\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dungeons.Utils\Dungeons.Utils.csproj">

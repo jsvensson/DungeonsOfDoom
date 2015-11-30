@@ -7,7 +7,7 @@ namespace Dungeons.Core
         private char symbol;
         private ConsoleColor color;
 
-        public Tile(char symbol, ConsoleColor color) :
+        protected Tile(char symbol, ConsoleColor color) :
             base(symbol, color)
         {
             IsWalkable = true;

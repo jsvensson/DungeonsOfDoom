@@ -4,7 +4,7 @@ namespace Dungeons.Core
 {
     class Floor : Tile
     {
-        public Floor(char symbol, ConsoleColor color) :
+        internal Floor(char symbol, ConsoleColor color) :
             base(symbol, color)
         {
         }
