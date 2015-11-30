@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Dungeons.Core
 {
-    public static class Blitter
+    static class Blitter
     {
         static List<Blixel> blixels = new List<Blixel>();
 

@@ -2,16 +2,16 @@
 
 namespace Dungeons.Core
 {
-    public class Blixel
+    class Blixel
     {
-        public Blixel(Point position, char symbol, ConsoleColor color)
+        internal Blixel(Point position, char symbol, ConsoleColor color)
         {
             Position = position;
             Symbol = symbol;
             Color = color;
         }
 
-        public Blixel(Point position, GameEntity entity)
+        internal Blixel(Point position, GameEntity entity)
         {
             Position = position;
             Symbol = entity.Symbol;
