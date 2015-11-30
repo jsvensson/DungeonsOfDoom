@@ -48,17 +48,13 @@ namespace Dungeons.Core
             CreateItems();
         }
 
-        private bool CheckForItems()
+        private void CheckForItems()
         {
             Tile tile = level.Map[player.Position.X, player.Position.Y];
             if (tile.HasItems)
             {
-                Item item = tile.Item;
-                statusQueue.Add($"A {item.Name} lies here.");
-                return true;
+                statusQueue.Add($"A {tile.Item.Name} lies here.");
             }
-            else
-                return false;
         }
 
         private void CreateItems()
