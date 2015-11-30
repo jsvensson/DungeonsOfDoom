@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{842AC203-A715-4B1A-B8B2-A31EE82ECB87}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{E48E0EF2-6AF6-406B-BBA8-BF8B263E61F2}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dungeons</RootNamespace>
-    <AssemblyName>Dungeons</AssemblyName>
+    <RootNamespace>Dungeons.Utils</RootNamespace>
+    <AssemblyName>Dungeons.Utils</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,40 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Blitter.cs" />
-    <Compile Include="Blixel.cs" />
-    <Compile Include="Enums\MoveInfo.cs" />
-    <Compile Include="GameEntities\Tiles\Floor.cs" />
-    <Compile Include="GameEntities\Creature.cs" />
-    <Compile Include="Enums\Direction.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="GameEntities\GameEntity.cs" />
-    <Compile Include="GameEntities\Creatures\Goblin.cs" />
-    <Compile Include="GameEntities\Item.cs" />
-    <Compile Include="GameEntities\Creatures\Monster.cs" />
-    <Compile Include="GameEntities\Creatures\Player.cs" />
-    <Compile Include="GameEntities\Tiles\StairDown.cs" />
-    <Compile Include="Interfaces\ILootable.cs" />
-    <Compile Include="Level.cs" />
-    <Compile Include="Position.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GameEntities\Tile.cs" />
-    <Compile Include="GameEntities\Creatures\Troll.cs" />
-    <Compile Include="GameEntities\Tiles\Wall.cs" />
-    <Compile Include="StatusQueue.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GameEntities\Items\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Dungeons.Utils\Dungeons.Utils.csproj">
-      <Project>{e48e0ef2-6af6-406b-bba8-bf8b263e61f2}</Project>
-      <Name>Dungeons.Utils</Name>
-    </ProjectReference>
+    <Compile Include="Randomizer.cs" />
+    <Compile Include="StringUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
