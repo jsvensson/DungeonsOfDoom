@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EditorConfig.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=fe6ce3ea283749f2, processorArchitecture=MSIL">
+      <HintPath>..\packages\editorconfig.0.12.1\lib\net45\EditorConfig.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,7 +54,7 @@
     <Compile Include="GameEntities\Creatures\Monster.cs" />
     <Compile Include="GameEntities\Creatures\Player.cs" />
     <Compile Include="GameEntities\Creatures\Troll.cs" />
-    <Compile Include="GameEntities\GameEntity.cs" />
+    <Compile Include="GameEntity.cs" />
     <Compile Include="GameEntities\Item.cs" />
     <Compile Include="GameEntities\Tile.cs" />
     <Compile Include="GameEntities\Tiles\Floor.cs" />
@@ -70,6 +74,9 @@
       <Project>{e48e0ef2-6af6-406b-bba8-bf8b263e61f2}</Project>
       <Name>Dungeons.Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
